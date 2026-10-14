@@ -1,0 +1,4 @@
+# Only for scripts/package.py. Also declared inline (PEP 723), so `uv run scripts/package.py ...` needs no install.
+# External binaries: ffmpeg and ffprobe on PATH.
+pillow>=10
+numpy>=1.24

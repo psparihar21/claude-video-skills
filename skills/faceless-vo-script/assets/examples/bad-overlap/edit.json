@@ -1,0 +1,28 @@
+{
+  "title": "Bad fixture",
+  "platform": "youtube-shorts",
+  "format": "faceless-gameplay",
+  "video_duration_sec": 10.0,
+  "video_path": "",
+  "audio_bed": "silent",
+  "shots": [
+    {
+      "id": "s01",
+      "in_sec": 0.0,
+      "out_sec": 6.0,
+      "visual": "A push with no readable text.",
+      "cut_type": "hard",
+      "energy": "hook"
+    },
+    {
+      "id": "s02",
+      "in_sec": 6.0,
+      "out_sec": 10.0,
+      "visual": "Full-frame card.",
+      "on_screen_text": "WAIT",
+      "cut_type": "text-card",
+      "energy": "payoff",
+      "hold_for_read": true
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "title": "The first minute",
+  "slug": "the-first-minute",
+  "status": "final",
+  "register": "indian-english",
+  "format": "faceless-gameplay",
+  "platform": "youtube-shorts",
+  "video_duration_sec": 18.0,
+  "persona": "Pan-India observer, late 20s, close-mic, calm. Sounds like someone who has watched the VOD, not like a shoutcaster.",
+  "mic_note": "Even pace. Stress the last content word of each sentence. Do not punch 'twenty'.",
+  "cues": [
+    {
+      "id": "c01",
+      "shot_id": "s01",
+      "role": "hook",
+      "in_sec": 0.18,
+      "out_sec": 4.25,
+      "spoken": "Most players lose the match before it starts.",
+      "performance": "[close, no shout] Most players lose the match before it starts.",
+      "emphasis": ["before"],
+      "fact_source": "",
+      "mix_note": ""
+    },
+    {
+      "id": "c02",
+      "shot_id": "s02",
+      "role": "turn",
+      "in_sec": 4.7,
+      "out_sec": 11.55,
+      "spoken": "They push one knock. The zone is still twenty seconds away.",
+      "performance": "[drop the pace on the zone] They push one knock. The zone is still twenty seconds away.",
+      "emphasis": ["still"],
+      "fact_source": "s02.on_screen_text",
+      "mix_note": ""
+    },
+    {
+      "id": "c03",
+      "shot_id": "s03",
+      "role": "payoff",
+      "in_sec": 12.1,
+      "out_sec": 16.12,
+      "spoken": "The fight can wait. The zone will not.",
+      "performance": "[deadpan] The fight can wait. The zone will not.",
+      "emphasis": ["zone"],
+      "fact_source": "",
+      "mix_note": "End clean so the card can be read in silence."
+    }
+  ],
+  "intentional_silence": [
+    {
+      "in_sec": 16.2,
+      "out_sec": 18.0,
+      "reason": "Card reads ROTATE FIRST. Do not read it aloud."
+    }
+  ],
+  "recut_requests": []
+}
