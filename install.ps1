@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS  Installs the skills in this repo, and the third-party skills they depend on, into ~/.claude/skills.
 .PARAMETER SkipDependencies  Install only the skills in this repo.
 .PARAMETER Target            Skills folder. Default: ~/.claude/skills
@@ -33,7 +33,7 @@ if (-not $SkipDependencies) {
     $dest = Join-Path $Target $s
     if (Test-Path $dest) { Write-Host "   present $s" }
     elseif (Get-Command git -ErrorAction SilentlyContinue) { git clone --depth 1 "https://github.com/louisedesadeleer/$s.git" $dest }
-    else { Write-Host "   skipped $s: git not found" -ForegroundColor Yellow }
+    else { Write-Host "   skipped ${s}: git not found" -ForegroundColor Yellow }
   }
 
   Write-Host "== Python packages"
