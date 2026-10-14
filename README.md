@@ -1,7 +1,7 @@
-﻿# Claude Video Skills
+# Claude Video Skills
 
 Three [Claude Code](https://claude.com/claude-code) skills that take a raw Hindi / Hinglish / English video
-from **cut â†’ captions â†’ voiceover â†’ thumbnail**, on a Windows PC, using only free tools.
+from **cut → captions → voiceover → thumbnail**, on a Windows PC, using only free tools.
 
 Built and tested on real footage (RTX 5070 laptop, Windows 11). Each skill is a self-contained folder
 with a `SKILL.md` (the instructions Claude follows), helper scripts, references and tests/examples.
@@ -16,14 +16,14 @@ with a `SKILL.md` (the instructions Claude follows), helper scripts, references 
 
 ```
 raw footage
-   â”‚
-   â–¼
-video-edit â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–º locked cut (edit.json / EDL, captions.srt, final .mp4)
-   â”‚                          â”‚
-   â”‚                          â–¼
-   â”‚                faceless-vo-script â”€â”€â–º script.json, teleprompter, captions, voice.m4a
-   â–¼
-video-packaging â”€â”€â”€â”€â”€â”€â–º thumbnail / cover + title + description
+   │
+   ▼
+video-edit ───────────► locked cut (edit.json / EDL, captions.srt, final .mp4)
+   │                          │
+   │                          ▼
+   │                faceless-vo-script ──► script.json, teleprompter, captions, voice.m4a
+   ▼
+video-packaging ──────► thumbnail / cover + title + description
 ```
 
 The skills pass plain files to each other (`edit.json`, SRT, frames), so each can also be used alone.
@@ -32,18 +32,18 @@ The skills pass plain files to each other (`edit.json`, SRT, frames), so each ca
 
 ```
 claude-video-skills/
-â”œâ”€â”€ README.md
-â”œâ”€â”€ LICENSE
-â”œâ”€â”€ install.ps1                one-shot installer (skills + dependencies)
-â”œâ”€â”€ dependencies/DEPENDENCIES.md
-â”œâ”€â”€ skills/
-â”‚   â”œâ”€â”€ video-edit/            SKILL.md, RULES.md, scripts/
-â”‚   â”œâ”€â”€ faceless-vo-script/    SKILL.md, scripts/, references/, assets/ (schemas + examples), evals/
-â”‚   â””â”€â”€ video-packaging/       SKILL.md, scripts/, references/
-â”œâ”€â”€ docs/
-â”‚   â””â”€â”€ video-packaging-v2-test-report.md   what broke on real footage and how v2 fixed it
-â””â”€â”€ examples/
-    â””â”€â”€ video-packaging/       sample covers produced by the skill
+├── README.md
+├── LICENSE
+├── install.ps1                one-shot installer (skills + dependencies)
+├── dependencies/DEPENDENCIES.md
+├── skills/
+│   ├── video-edit/            SKILL.md, RULES.md, scripts/
+│   ├── faceless-vo-script/    SKILL.md, scripts/, references/, assets/ (schemas + examples), evals/
+│   └── video-packaging/       SKILL.md, scripts/, references/
+├── docs/
+│   └── video-packaging-v2-test-report.md   what broke on real footage and how v2 fixed it
+└── examples/
+    └── video-packaging/       sample covers produced by the skill
 ```
 
 ## Install
@@ -64,11 +64,12 @@ Full list of tools, packages, skills and connectors: [dependencies/DEPENDENCIES.
 Per-skill requirements are in each skill's README.
 
 To use just one skill in another setup, copy its folder from `skills/` into that setup's skills directory; its README lists what it needs.
+
 ## Highlights (what to look at)
 
 - **Approval gate + persistent style rules.** `video-edit` refuses to render the final cut until you say "yes" to a written
   `edit-decision.md`, and every correction you give is appended to `RULES.md` so the next video already follows it.
-- **Hinglish pipeline.** GPU Whisper for Hindi speech, then word-by-word Devanagari â†’ Roman romanizer that keeps timestamps,
+- **Hinglish pipeline.** GPU Whisper for Hindi speech, then word-by-word Devanagari → Roman romanizer that keeps timestamps,
   so captions come out as "yeh video dekho".
 - **Validated voiceovers.** `faceless-vo-script` checks the script against the cut (overlap, speaking rate, unsourced facts)
   with JSON schemas and bad-input test fixtures before any audio is generated.

@@ -1,6 +1,6 @@
 # video-packaging v2: test results and comparison
 
-Tested 2026-10-15 on two real videos:
+Tested 2026-10-15 on two real videos (the footage is personal and not included in this repo; sample outputs are in `examples/video-packaging/`):
 - **`desk-gta6-short.mp4`:** 20 s, 1080×1920 HEVC with audio. An edited Short with burned-in titles
   ("EMPTY DESK", "LOADING SETUP", the GTA VI logo, "NIGHT MODE", "MISSION PASSED") and zoom bars.
 - **`1000203307.mp4`:** 58 s, 4K rotated phone footage, no audio.

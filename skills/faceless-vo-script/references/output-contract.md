@@ -101,7 +101,7 @@ Rules the validator also checks:
 Generate only with:
 
 ```bash
-python .cursor/skills/faceless-vo-script/scripts/render_script.py \
+python $HOME/.claude/skills/faceless-vo-script/scripts/render_script.py \
   --script vo/<slug>/03-script.json \
   --out vo/<slug>
 ```
@@ -113,7 +113,7 @@ That writes `02-script.md`, `04-captions.srt`, `05-record-notes.md`, and `06-tts
 When status is `final`:
 
 ```bash
-python .cursor/skills/faceless-vo-script/scripts/speak.py \
+python $HOME/.claude/skills/faceless-vo-script/scripts/speak.py \
   --script vo/<slug>/03-script.json \
   --out vo/<slug>
 ```
