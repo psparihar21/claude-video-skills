@@ -1,0 +1,45 @@
+{
+  "title": "Bad fixture",
+  "slug": "bad-fixture",
+  "status": "final",
+  "register": "indian-english",
+  "format": "faceless-gameplay",
+  "platform": "youtube-shorts",
+  "video_duration_sec": 10.0,
+  "persona": "Fixture that must fail.",
+  "mic_note": "Do not record this.",
+  "cues": [
+    {
+      "id": "c01",
+      "shot_id": "s01",
+      "role": "hook",
+      "in_sec": 0.2,
+      "out_sec": 2.2,
+      "spoken": "Hey guys welcome back to this one, yeh nahi.",
+      "performance": "Hey guys welcome back to this one, yeh nahi.",
+      "emphasis": ["welcome"]
+    },
+    {
+      "id": "c02",
+      "shot_id": "s01",
+      "role": "setup",
+      "in_sec": 1.5,
+      "out_sec": 4.0,
+      "spoken": "The zone is still twenty seconds away and they push anyway right now.",
+      "performance": "The zone is still twenty seconds away and they push anyway right now.",
+      "emphasis": ["zone"]
+    },
+    {
+      "id": "c03",
+      "shot_id": "s02",
+      "role": "payoff",
+      "in_sec": 6.2,
+      "out_sec": 9.5,
+      "spoken": "Read this card with me.",
+      "performance": "Read this card with me.",
+      "emphasis": []
+    }
+  ],
+  "intentional_silence": [],
+  "recut_requests": []
+}

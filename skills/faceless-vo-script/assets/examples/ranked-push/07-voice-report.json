@@ -1,0 +1,48 @@
+{
+  "voice": "en-IN-PrabhatNeural",
+  "rate": "+4%",
+  "file": "07-voice.m4a",
+  "duration_sec": 32.0,
+  "cues": [
+    {
+      "id": "c01",
+      "in_sec": 0.1,
+      "window_sec": 2.15,
+      "spoken_sec": 2.16,
+      "tempo": 1.081,
+      "trimmed": false
+    },
+    {
+      "id": "c02",
+      "in_sec": 2.6,
+      "window_sec": 6.1,
+      "spoken_sec": 4.968,
+      "tempo": 1.0,
+      "trimmed": false
+    },
+    {
+      "id": "c03",
+      "in_sec": 9.2,
+      "window_sec": 5.3,
+      "spoken_sec": 4.896,
+      "tempo": 1.0,
+      "trimmed": false
+    },
+    {
+      "id": "c04",
+      "in_sec": 17.75,
+      "window_sec": 7.8,
+      "spoken_sec": 7.392,
+      "tempo": 1.0,
+      "trimmed": false
+    },
+    {
+      "id": "c05",
+      "in_sec": 26.2,
+      "window_sec": 2.65,
+      "spoken_sec": 2.4,
+      "tempo": 1.0,
+      "trimmed": false
+    }
+  ]
+}

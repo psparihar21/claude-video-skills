@@ -1,0 +1,40 @@
+{
+  "title": "The first minute",
+  "platform": "youtube-shorts",
+  "format": "faceless-gameplay",
+  "video_duration_sec": 18.0,
+  "video_path": "",
+  "audio_bed": "gameplay-sfx",
+  "editor_notes": "Zone timer is burned in as ZONE 0:20 during the rotate. Do not invent a rank.",
+  "shots": [
+    {
+      "id": "s01",
+      "in_sec": 0.0,
+      "out_sec": 4.5,
+      "visual": "Drop path. The match timer has barely started and the squad is already splitting.",
+      "on_screen_text": "",
+      "cut_type": "hard",
+      "energy": "hook"
+    },
+    {
+      "id": "s02",
+      "in_sec": 4.5,
+      "out_sec": 12.0,
+      "visual": "One knock in the distance. The squad sprints toward it. Zone timer is on screen.",
+      "on_screen_text": "ZONE 0:20",
+      "cut_type": "hard",
+      "energy": "build"
+    },
+    {
+      "id": "s03",
+      "in_sec": 12.0,
+      "out_sec": 18.0,
+      "visual": "They arrive late. A card replaces the gameplay.",
+      "on_screen_text": "ROTATE FIRST",
+      "cut_type": "text-card",
+      "energy": "payoff",
+      "hold_for_read": true,
+      "hold_in_sec": 16.2
+    }
+  ]
+}

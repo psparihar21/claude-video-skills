@@ -1,0 +1,20 @@
+1
+00:00:00,180 --> 00:00:04,250
+Most players lose the
+match before it starts.
+
+2
+00:00:04,700 --> 00:00:07,191
+They push one knock.
+
+3
+00:00:07,191 --> 00:00:11,550
+The zone is still twenty seconds away.
+
+4
+00:00:12,100 --> 00:00:14,110
+The fight can wait.
+
+5
+00:00:14,110 --> 00:00:16,120
+The zone will not.

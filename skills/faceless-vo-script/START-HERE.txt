@@ -1,0 +1,9 @@
+Upload this whole folder to Claude.
+
+1. Unzip faceless_vo_skill.zip.
+2. In Claude, open a Project (or a chat that accepts files).
+3. Upload every file in the faceless-vo-script folder. Keep the folder names: references, scripts, assets, evals.
+4. Open PASTE-INTO-CLAUDE.md and paste everything under the line into the Project instructions, or into your first message.
+5. Then send Claude your locked edit (shot list, timeline, or video).
+
+Claude could not see these files before because they lived only in the Cursor workspace. This zip is the copy you give it.

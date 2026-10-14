@@ -1,0 +1,80 @@
+# Claude Video Skills
+
+Three [Claude Code](https://claude.com/claude-code) skills that take a raw Hindi / Hinglish / English video
+from **cut → captions → voiceover → thumbnail**, on a Windows PC, using only free tools.
+
+Built and tested on real footage (RTX 5070 laptop, Windows 11). Each skill is a self-contained folder
+with a `SKILL.md` (the instructions Claude follows), helper scripts, references and tests/examples.
+
+| Skill | What it does | Stack |
+|---|---|---|
+| [`video-edit`](skills/video-edit/) | End-to-end editing desk: transcribe, plan the cut, approval gate, captions, sound, graphics, loudness-checked export. Learns your style through a `RULES.md` file. | FFmpeg (CUDA/NVENC), faster-whisper large-v3, Parakeet, vtc, HyperFrames, SnipSound |
+| [`faceless-vo-script`](skills/faceless-vo-script/) | Writes a timed Hinglish / Indian-English voiceover for a locked edit, validates timing against the cut, renders teleprompter, captions, TTS brief and an Indian neural voice track. | Python, Edge TTS (no API key), JSON schemas |
+| [`video-packaging`](skills/video-packaging/) | Builds one production-ready thumbnail / cover from a **real frame** of the video, plus title, caption and description. Skips frames with burned-in text, crops around the subject, gates on phone-size legibility. | Python, Pillow, numpy, ffmpeg, Windows OCR, optional Canva |
+
+## Pipeline
+
+```
+raw footage
+   │
+   ▼
+video-edit ───────────► locked cut (edit.json / EDL, captions.srt, final .mp4)
+   │                          │
+   │                          ▼
+   │                faceless-vo-script ──► script.json, teleprompter, captions, voice.m4a
+   ▼
+video-packaging ──────► thumbnail / cover + title + description
+```
+
+The skills pass plain files to each other (`edit.json`, SRT, frames), so each can also be used alone.
+
+## Repository layout
+
+```
+claude-video-skills/
+├── README.md
+├── LICENSE
+├── skills/
+│   ├── video-edit/            SKILL.md, RULES.md, scripts/
+│   ├── faceless-vo-script/    SKILL.md, scripts/, references/, assets/ (schemas + examples), evals/
+│   └── video-packaging/       SKILL.md, scripts/, references/
+├── docs/
+│   └── video-packaging-v2-test-report.md   what broke on real footage and how v2 fixed it
+└── examples/
+    └── video-packaging/       sample covers produced by the skill
+```
+
+## Install
+
+Claude Code reads skills from `~/.claude/skills/`. Copy the ones you want:
+
+```powershell
+git clone https://github.com/<your-username>/claude-video-skills.git
+Copy-Item -Recurse claude-video-skills\skills\* "$env:USERPROFILE\.claude\skills\"
+```
+
+Restart Claude Code. The skills trigger from natural requests ("edit this video", "write a voiceover for this cut",
+"make a thumbnail"), or call them by name, e.g. `/video-edit`.
+
+Per-skill requirements and usage are in each skill's README.
+
+## Highlights (what to look at)
+
+- **Approval gate + persistent style rules.** `video-edit` refuses to render the final cut until you say "yes" to a written
+  `edit-decision.md`, and every correction you give is appended to `RULES.md` so the next video already follows it.
+- **Hinglish pipeline.** GPU Whisper for Hindi speech, then word-by-word Devanagari → Roman romanizer that keeps timestamps,
+  so captions come out as "yeh video dekho".
+- **Validated voiceovers.** `faceless-vo-script` checks the script against the cut (overlap, speaking rate, unsourced facts)
+  with JSON schemas and bad-input test fixtures before any audio is generated.
+- **Measured thumbnails.** `video-packaging` gates on cap height at real phone tile width and WCAG-style contrast, and
+  documents its own regression results in [`docs/`](docs/video-packaging-v2-test-report.md).
+
+## Not included
+
+These are third-party skills that the workflow *calls*, installed separately and owned by their authors:
+`hyperframes*` and `media-use` (HeyGen, `npx skills add heygen-com/hyperframes`), `clipify` and `cut-video`
+(open-source, MIT, separate repos). Music comes from SnipSound; Resolve Free is optional.
+
+## Author
+
+Pushpender Singh · pushpendersp21@gmail.com · MIT licensed

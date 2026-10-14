@@ -1,0 +1,17 @@
+{
+  "skill": "faceless-vo-script",
+  "should_trigger": [
+    "Write a Hinglish voiceover for this edited faceless gameplay.",
+    "The other skill finished the cut. I need an Indian English vocal script timed to it.",
+    "Turn edit.json into a TTS brief and a voice track I can lay on the short.",
+    "Narration for this faceless video. The shot list is locked.",
+    "Commentary script for the gameplay edit, majorly Indian English."
+  ],
+  "should_not_trigger": [
+    "Add transitions and recut this video.",
+    "Pick a YouTube niche for a faceless channel.",
+    "Generate a thumbnail for the short.",
+    "Write a blog post about ranked gameplay.",
+    "Translate this paragraph into French."
+  ]
+}

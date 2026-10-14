@@ -1,0 +1,82 @@
+{
+  "title": "Don't push that door",
+  "slug": "dont-push-that-door",
+  "status": "final",
+  "register": "hinglish",
+  "format": "story-over-gameplay",
+  "platform": "youtube-shorts",
+  "video_duration_sec": 32.0,
+  "persona": "Pan-India observer, late 20s, close-mic, slight smile, no shout. Not the player.",
+  "mic_note": "One hand from the mic. Land the Hindi connectors at the same volume as the English. Leave the gap before the end card.",
+  "pronounce": [],
+  "cues": [
+    {
+      "id": "c01",
+      "shot_id": "s01",
+      "role": "hook",
+      "in_sec": 0.1,
+      "out_sec": 2.25,
+      "spoken": "Yeh push nahi bachega.",
+      "performance": "[close, slight smile] Yeh push nahi bachega.",
+      "emphasis": ["nahi"],
+      "fact_source": "",
+      "mix_note": "Under the door break. Do not wait for it to finish."
+    },
+    {
+      "id": "c02",
+      "shot_id": "s02",
+      "role": "setup",
+      "in_sec": 2.6,
+      "out_sec": 8.7,
+      "spoken": "The team bol rahi hai wait, lekin yeh banda still takes the door.",
+      "performance": "[deadpan on the second clause] The team bol rahi hai wait, lekin yeh banda still takes the door.",
+      "emphasis": ["still"],
+      "fact_source": "",
+      "mix_note": ""
+    },
+    {
+      "id": "c03",
+      "shot_id": "s03",
+      "role": "turn",
+      "in_sec": 9.2,
+      "out_sec": 14.5,
+      "spoken": "Loot girta hai aur the call is simple: airdrop, ya zone?",
+      "performance": "[lean in, not louder] Loot girta hai aur the call is simple: airdrop, ya zone?",
+      "emphasis": ["zone"],
+      "fact_source": "",
+      "mix_note": "Stop and let the two icons sit. The pause is the decision."
+    },
+    {
+      "id": "c04",
+      "shot_id": "s04",
+      "role": "payoff",
+      "in_sec": 17.75,
+      "out_sec": 25.55,
+      "spoken": "A third party walks in from behind. Jo abhi hero ban raha tha, ab sirf bachna hai.",
+      "performance": "[drop the pace after the full stop] A third party walks in from behind. Jo abhi hero ban raha tha, ab sirf bachna hai.",
+      "emphasis": ["behind"],
+      "fact_source": "",
+      "mix_note": "Duck the bed. Leave the footstep sting dry before this line ends."
+    },
+    {
+      "id": "c05",
+      "shot_id": "s05",
+      "role": "payoff",
+      "in_sec": 26.2,
+      "out_sec": 28.85,
+      "spoken": "Akela mat push karna.",
+      "performance": "[close, no smile] Akela mat push karna.",
+      "emphasis": ["akela"],
+      "fact_source": "",
+      "mix_note": "Finish before the card. Do not read the card."
+    }
+  ],
+  "intentional_silence": [
+    {
+      "in_sec": 29.0,
+      "out_sec": 32.0,
+      "reason": "End card reads DON'T PUSH ALONE. The viewer reads it. The voice does not."
+    }
+  ],
+  "recut_requests": []
+}
