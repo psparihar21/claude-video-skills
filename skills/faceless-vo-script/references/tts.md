@@ -19,7 +19,7 @@ ElevenLabs is not called from here. The brief names `eleven_multilingual_v2` bec
 Override on one run:
 
 ```bash
-python .cursor/skills/faceless-vo-script/scripts/speak.py \
+python $HOME/.claude/skills/faceless-vo-script/scripts/speak.py \
   --script vo/<slug>/03-script.json \
   --out vo/<slug> \
   --voice en-IN-NeerjaNeural

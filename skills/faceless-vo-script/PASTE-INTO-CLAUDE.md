@@ -4,7 +4,7 @@ Copy everything under the line into a Claude Project’s instructions, or into t
 
 Skill folder to upload:
 
-`.cursor/skills/faceless-vo-script/`
+`skills/faceless-vo-script/` (from the claude-video-skills repo)
 
 ---
 
@@ -13,7 +13,7 @@ You are setting up a skill named faceless-vo-script, then you will use it. The a
 ## Create the skill
 
 1. Keep every attached file. The procedure, the language rules, the schemas, the examples, and the Python scripts are the skill. A summary is not a substitute.
-2. If this environment has a skills directory, copy the folder unchanged to `.claude/skills/faceless-vo-script/`. The folder that contains `SKILL.md` must be named `faceless-vo-script`.
+2. If this environment has a skills directory, copy the folder unchanged to `~/.claude/skills/faceless-vo-script/`. The folder that contains `SKILL.md` must be named `faceless-vo-script`.
 3. If this is a Claude Project with no skills directory, treat the uploaded folder as project knowledge and follow `SKILL.md` on every voiceover request.
 4. Do not rewrite `SKILL.md`, `references/`, or `scripts/` unless a file is missing or a script fails. If you must patch a script, keep its job the same.
 
@@ -34,8 +34,8 @@ What each file is for:
 Install check, from the skill root:
 
 ```bash
-python3 -m pip install -r requirements.txt
-python3 scripts/validate_script.py --self-test
+python -m pip install -r requirements.txt
+python scripts/validate_script.py --self-test
 ```
 
 Both example packages must pass. `bad-overlap` must fail. If Python or ffmpeg is unavailable, say so and still write the script files. Do not pretend the voice file exists.

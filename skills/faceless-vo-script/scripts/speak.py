@@ -174,7 +174,7 @@ def main() -> int:
     try:
         import edge_tts  # noqa: F401
     except ImportError:
-        raise SystemExit("edge-tts is not installed. Run: python3 -m pip install edge-tts")
+        raise SystemExit("edge-tts is not installed. Run: python -m pip install edge-tts")
     script = load(args.script)
     voice = edge_voice(script, args.voice or None)
     report = asyncio.run(build(script, args.out, voice))

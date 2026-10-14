@@ -88,7 +88,7 @@ Follow this order. Do not draft the spoken track in your head and then assign ti
 2. **See the picture.** When `video_path` is set, run:
 
    ```bash
-   python .cursor/skills/faceless-vo-script/scripts/sample_shots.py \
+   python $HOME/.claude/skills/faceless-vo-script/scripts/sample_shots.py \
      --edit vo/<slug>/edit.json \
      --out vo/<slug>/frames
    ```
@@ -107,7 +107,7 @@ Follow this order. Do not draft the spoken track in your head and then assign ti
 5. **Render.**
 
    ```bash
-   python .cursor/skills/faceless-vo-script/scripts/render_script.py \
+   python $HOME/.claude/skills/faceless-vo-script/scripts/render_script.py \
      --script vo/<slug>/03-script.json \
      --out vo/<slug>
    ```
@@ -115,7 +115,7 @@ Follow this order. Do not draft the spoken track in your head and then assign ti
 6. **Validate.** Exit 0 is required before you call it done.
 
    ```bash
-   python .cursor/skills/faceless-vo-script/scripts/validate_script.py \
+   python $HOME/.claude/skills/faceless-vo-script/scripts/validate_script.py \
      --edit vo/<slug>/edit.json \
      --script vo/<slug>/03-script.json
    ```
@@ -124,12 +124,12 @@ Follow this order. Do not draft the spoken track in your head and then assign ti
 7. **Speak.** When status is `final`, build the voice file. Skip this only when the machine cannot reach the speech service, and say so.
 
    ```bash
-   python .cursor/skills/faceless-vo-script/scripts/speak.py \
+   python $HOME/.claude/skills/faceless-vo-script/scripts/speak.py \
      --script vo/<slug>/03-script.json \
      --out vo/<slug>
    ```
 
-   Needs `edge-tts` (`python3 -m pip install edge-tts`) and ffmpeg. Read `references/tts.md` only if you need to change the voice.
+   Needs `edge-tts` (`python -m pip install edge-tts`) and ffmpeg. Read `references/tts.md` only if you need to change the voice.
 8. **Reply** with the register, the archetype, where the files are, and any low-confidence shots, `[FACT:]` holes, or recut requests. Paste the hook line and the path to `07-voice.m4a`. Do not paste the whole teleprompter unless they asked.
 
 ## Timing law
