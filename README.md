@@ -34,6 +34,8 @@ The skills pass plain files to each other (`edit.json`, SRT, frames), so each ca
 claude-video-skills/
 ├── README.md
 ├── LICENSE
+├── install.ps1                one-shot installer (skills + dependencies)
+├── dependencies/DEPENDENCIES.md
 ├── skills/
 │   ├── video-edit/            SKILL.md, RULES.md, scripts/
 │   ├── faceless-vo-script/    SKILL.md, scripts/, references/, assets/ (schemas + examples), evals/
@@ -46,18 +48,22 @@ claude-video-skills/
 
 ## Install
 
-Claude Code reads skills from `~/.claude/skills/`. Copy the ones you want:
-
 ```powershell
 git clone https://github.com/<your-username>/claude-video-skills.git
-Copy-Item -Recurse claude-video-skills\skills\* "$env:USERPROFILE\.claude\skills\"
+cd claude-video-skills
+.\install.ps1                      # skills + all dependencies
+.\install.ps1 -SkipDependencies    # just the three skills
 ```
 
-Restart Claude Code. The skills trigger from natural requests ("edit this video", "write a voiceover for this cut",
-"make a thumbnail"), or call them by name, e.g. `/video-edit`.
+`install.ps1` copies the skills into `~/.claude/skills/`, then fetches the third-party skills they call
+(HyperFrames, clipify, cut-video) from their original authors, and installs the Python packages.
+Restart Claude Code. Skills trigger from natural requests ("edit this video", "write a voiceover for this cut",
+"make a thumbnail") or by name, e.g. `/video-edit`.
 
-Per-skill requirements and usage are in each skill's README.
+Full list of tools, packages, skills and connectors: [dependencies/DEPENDENCIES.md](dependencies/DEPENDENCIES.md).
+Per-skill requirements are in each skill's README.
 
+To use just one skill in another setup, copy its folder from `skills/` into that setup's skills directory; its README lists what it needs.
 ## Highlights (what to look at)
 
 - **Approval gate + persistent style rules.** `video-edit` refuses to render the final cut until you say "yes" to a written
@@ -69,12 +75,14 @@ Per-skill requirements and usage are in each skill's README.
 - **Measured thumbnails.** `video-packaging` gates on cap height at real phone tile width and WCAG-style contrast, and
   documents its own regression results in [`docs/`](docs/video-packaging-v2-test-report.md).
 
-## Not included
+## Dependencies
 
-These are third-party skills that the workflow *calls*, installed separately and owned by their authors:
-`hyperframes*` and `media-use` (HeyGen, `npx skills add heygen-com/hyperframes`), `clipify` and `cut-video`
-(open-source, MIT, separate repos). Music comes from SnipSound; Resolve Free is optional.
+Third-party skills are fetched from their original repos by `install.ps1`, not copied here:
+[heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) (HyperFrames + media-use),
+[louisedesadeleer/clipify](https://github.com/louisedesadeleer/clipify),
+[louisedesadeleer/cut-video](https://github.com/louisedesadeleer/cut-video).
+See [dependencies/DEPENDENCIES.md](dependencies/DEPENDENCIES.md).
 
-## Author
+## License
 
-Pushpender Singh · pushpendersp21@gmail.com · MIT licensed
+MIT, for the contents of this repo only.
