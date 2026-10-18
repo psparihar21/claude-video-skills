@@ -34,6 +34,15 @@ Everything the three skills need, so they work on a fresh machine. Third-party i
 | `pillow`, `numpy` | video-packaging | `uv run` handles it, or `pip install -r skills/video-packaging/requirements.txt` |
 | `faster-whisper`, `video-timeline-copilot` (`vtc`) | video-edit | `uv tool install video-timeline-copilot --with faster-whisper` |
 
+## Voice cloning (own-voice-render only)
+
+| Item | Notes |
+|---|---|
+| NVIDIA GPU (about 6 GB for fine-tuning) | required; CPU is too slow |
+| Conda env, Python 3.10, CUDA torch, `transformers==4.49.0` | see `skills/own-voice-render/README.md` |
+| Hugging Face account + access to gated `ai4bharat/IndicF5` | log in yourself with `hf auth login`; never share the token |
+| Your own recordings | not in this repo; see `skills/own-voice-render/voice/refs/README.md` |
+
 ## MCP connectors (optional)
 
 | Connector | Needed by | Notes |

@@ -1,6 +1,6 @@
 # Claude Video Skills
 
-Three [Claude Code](https://claude.com/claude-code) skills that take a raw Hindi / Hinglish / English video
+Four [Claude Code](https://claude.com/claude-code) skills that take a raw Hindi / Hinglish / English video
 from **cut → captions → voiceover → thumbnail**, on a Windows PC, using only free tools.
 
 Built and tested on real footage (RTX 5070 laptop, Windows 11). Each skill is a self-contained folder
@@ -10,6 +10,7 @@ with a `SKILL.md` (the instructions Claude follows), helper scripts, references 
 |---|---|---|
 | [`video-edit`](skills/video-edit/) | End-to-end editing desk: transcribe, plan the cut, approval gate, captions, sound, graphics, loudness-checked export. Learns your style through a `RULES.md` file. | FFmpeg (CUDA/NVENC), faster-whisper large-v3, Parakeet, vtc, HyperFrames, SnipSound |
 | [`faceless-vo-script`](skills/faceless-vo-script/) | Writes a timed Hinglish / Indian-English voiceover for a locked edit, validates timing against the cut, renders teleprompter, captions, TTS brief and an Indian neural voice track. | Python, Edge TTS (no API key), JSON schemas |
+| [`own-voice-render`](skills/own-voice-render/) | Turns a finished script into audio in **your own cloned voice** (Hinglish/Hindi/English), locally on an NVIDIA GPU: Roman-to-Devanagari conversion, cue fitting, loudness normalisation, QA report. | Python, IndicF5 (fine-tuned), ffmpeg |
 | [`video-packaging`](skills/video-packaging/) | Builds one production-ready thumbnail / cover from a **real frame** of the video, plus title, caption and description. Skips frames with burned-in text, crops around the subject, gates on phone-size legibility. | Python, Pillow, numpy, ffmpeg, Windows OCR, optional Canva |
 
 ## Pipeline
@@ -22,6 +23,9 @@ video-edit ───────────► locked cut (edit.json / EDL, cap
    │                          │
    │                          ▼
    │                faceless-vo-script ──► script.json, teleprompter, captions, voice.m4a
+   │                          │
+   │                          ▼
+   │                own-voice-render ───► voice in your own voice (.wav/.m4a)
    ▼
 video-packaging ──────► thumbnail / cover + title + description
 ```
@@ -39,6 +43,7 @@ claude-video-skills/
 ├── skills/
 │   ├── video-edit/            SKILL.md, RULES.md, scripts/
 │   ├── faceless-vo-script/    SKILL.md, scripts/, references/, assets/ (schemas + examples), evals/
+│   ├── own-voice-render/      SKILL.md, scripts/, references/, assets/lexicon.json, tests/ (no voice data)
 │   └── video-packaging/       SKILL.md, scripts/, references/
 ├── docs/
 │   └── video-packaging-v2-test-report.md   what broke on real footage and how v2 fixed it
@@ -52,7 +57,7 @@ claude-video-skills/
 git clone https://github.com/psparihar21/claude-video-skills.git
 cd claude-video-skills
 .\install.ps1                      # skills + all dependencies
-.\install.ps1 -SkipDependencies    # just the three skills
+.\install.ps1 -SkipDependencies    # just the skills (no dependencies)
 ```
 
 `install.ps1` copies the skills into `~/.claude/skills/`, then fetches the third-party skills they call
@@ -75,6 +80,10 @@ To use just one skill in another setup, copy its folder from `skills/` into that
   with JSON schemas and bad-input test fixtures before any audio is generated.
 - **Measured thumbnails.** `video-packaging` gates on cap height at real phone tile width and WCAG-style contrast, and
   documents its own regression results in [`docs/`](docs/video-packaging-v2-test-report.md).
+
+## Related projects
+
+- [voice-studio](https://github.com/psparihar21/voice-studio): local web app for recording the voice-over against your video (feeds the voice-take editing step in `video-edit`).
 
 ## Dependencies
 
