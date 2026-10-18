@@ -7,3 +7,9 @@ node_modules/
 *.mov
 *.wav
 Thumbs.db
+skills/own-voice-render/voice/refs/*.wav
+skills/own-voice-render/voice/refs/*.txt
+skills/own-voice-render/config.json
+skills/own-voice-render/config.backup.json
+*.pt
+cache/

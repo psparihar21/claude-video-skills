@@ -1,0 +1,23 @@
+{
+  "skill": "own-voice-render",
+  "should_trigger": [
+    "Now turn this script into audio in my own voice.",
+    "The voiceover script is done, render it in my voice.",
+    "Take 03-script.json and give me a voice track I can lay on the edit, using my cloned voice.",
+    "Make a Hinglish voiceover of this script in my voice.",
+    "Read this srt in my voice and match the timings.",
+    "Generate the narration audio from the faceless script with my voice clone.",
+    "One word sounds wrong in my voice track, fix the pronunciation.",
+    "Render the vocal track for this video locally on my GPU."
+  ],
+  "should_not_trigger": [
+    "Write a Hinglish voiceover script for this gameplay edit.",
+    "Clone the voice of this celebrity from a YouTube clip.",
+    "Use ElevenLabs to read this script.",
+    "Cut the silences out of this recording.",
+    "Transcribe this video into captions.",
+    "Make a thumbnail for the video.",
+    "Fine-tune a language model on my chat logs.",
+    "Translate this paragraph into French."
+  ]
+}

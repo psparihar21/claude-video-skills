@@ -22,6 +22,25 @@ Non-goals: Epidemic Sound, paid music libraries, Suno, stock-music subscriptions
 3. Use the user's own words for on-screen titles when they give them. Otherwise propose titles in edit-decision.md for approval.
 4. After every delivery, ask: "Anything to change? Should it become a rule?" Every correction goes through Change control at the bottom.
 
+## Pro motion graphics and music recipe (verified 2026-10-15, Windows)
+
+Follow the "Quality bar", "Graphic look", "Graphic set", "Camera feel", "Music" and "Ending" lines in RULES.md. Method that worked:
+- **Cards:** write each card as a small HTML file, render it to a transparent PNG with `chrome.exe --headless=new --default-background-color=00000000 --force-device-scale-factor=1 --window-size=W,H --screenshot=out.png file:///...`. Design at the video's pixel size (3840 wide for 4K). Check a contact sheet before using them.
+- **Animation:** one `-loop 1 -framerate 30 -t D -i card.png` input per card, then `format=rgba,setpts=PTS-STARTPTS+T0/TB` and `overlay=x='96-(W+96)*(pow(1-min(max((t-T0)/0.35,0),1),3)+pow(min(max((t-(T1-0.3))/0.3,0),1),2))':y=Y:enable='between(t,T0,T1)':format=auto`. Apply overlays per segment, before concat, using segment-local time. Card inputs start after the video and music inputs.
+- **Zoom:** `scale=w='trunc(W*(Z0+(Z1-Z0)*t/DUR)/2)*2':h=...:eval=frame,crop=W:H:x='(iw-W)*FX':y='(ih-H)*FY'`. Freeze a frame with `tpad=stop_mode=clone:stop_duration=N`.
+- **ffmpeg 9 on this machine:** use `-/filter_complex file`, not `-filter_complex_script`. `drawtext` needs an explicit `fontfile` (fontconfig is missing). Source phone clips are yuvj420p: scale with `in_range=pc:out_range=tv`.
+- **Audio:** build stems in separate commands (music: `atrim, loudnorm=I=-27:TP=-4:LRA=7, afade in/out`; natural: `atrim, volume, adelay, apad=whole_dur=TOTAL`; then `sidechaincompress` + `amix normalize=0` + `alimiter`). Put everything in one big graph only if the duration checks out; a combined graph once cut audio to 46 s. Mux with `-c:v copy`.
+- **PowerShell traps:** variable names are case-insensitive (`$S` and `$s`, `$H` and `$h` collide). A one-item `@(@(...))` flattens. Do not delete inside `05-graphics`. Run long renders from a `.ps1` file.
+- **Deliver:** final with audio, silent picture-lock, music and natural stems, `voiceover-script-*.md`, license line, loudness numbers. HyperFrames 0.8.160 is now installed globally (npm, free, local; the user approved it on 2026-10-15). Use it for animated graphics (add `%APPDATA%\npm` to PATH, set `HYPERFRAMES_SKIP_SKILLS=1`, then `hyperframes init NAME --example blank --resolution 4k --non-interactive`, `hyperframes lint`, `hyperframes render --gpu --browser-gpu`). Docker is not installed and not needed. Smoke render of a 10 s blank project took 18 s. The Chrome + ffmpeg card method above stays as the fallback.
+
+## Hiding private info (verified 2026-10-16)
+
+- Track the target with a template match: pull gray 960x540 frames at 10 fps through ffmpeg rawvideo into numpy, FFT normalised cross-correlation against a template cut from one clear frame. Keep matches with score above 0.75, median-filter, interpolate, and hold the nearest sample with a bigger box in gaps. Write a 960x540 gray mask video (FFV1), one frame per output frame.
+- Apply it with `[blur][mask]alphamerge` then `overlay`. Do NOT use `maskedmerge`: it only blended about 60% and left the name faintly readable.
+- Verify at 100%: crop the region at full size every 0.75 s. Thumbnails hide leaks. Do not call a blur done from a contact sheet.
+- Keep unblurred renders out of the delivery folder. Move them to `OLD-name-visible-do-not-share`.
+- Windows `Settings > System > About`: record only the four spec tiles (crop 1262x320 starting 490,90 inside the window). Never include the profile name, the device name row, Device ID, Product ID or serial.
+
 ## Free of cost — always
 
 Never buy, subscribe, start a paid trial, sign up for a paid API, or use a cloud render. If a step would need anything paid, stop and tell the user.

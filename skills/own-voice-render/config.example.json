@@ -1,0 +1,116 @@
+{
+    "python":  "python",
+    "ffmpeg":  "",
+    "model_id":  "ai4bharat/IndicF5",
+    "checkpoint":  "\u003cpath to your fine-tuned IndicF5 .pt, or empty for the base model\u003e",
+    "cache_dir":  "./cache",
+    "refs":  {
+                 "xtr0061":  {
+                                 "audio":  "voice/refs/xtr0061.wav",
+                                 "text_file":  "voice/refs/xtr0061.txt",
+                                 "lang":  "hi"
+                             },
+                 "xtr0021":  {
+                                 "audio":  "voice/refs/xtr0021.wav",
+                                 "text_file":  "voice/refs/xtr0021.txt",
+                                 "lang":  "hi"
+                             },
+                 "xtr0038":  {
+                                 "audio":  "voice/refs/xtr0038.wav",
+                                 "text_file":  "voice/refs/xtr0038.txt",
+                                 "lang":  "hi"
+                             },
+                 "xtr0003":  {
+                                 "audio":  "voice/refs/xtr0003.wav",
+                                 "text_file":  "voice/refs/xtr0003.txt",
+                                 "lang":  "hi"
+                             },
+                 "xtr0052":  {
+                                 "audio":  "voice/refs/xtr0052.wav",
+                                 "text_file":  "voice/refs/xtr0052.txt",
+                                 "lang":  "hi"
+                             },
+                 "xtr0075":  {
+                                 "audio":  "voice/refs/xtr0075.wav",
+                                 "text_file":  "voice/refs/xtr0075.txt",
+                                 "lang":  "hi"
+                             },
+                 "utt0102":  {
+                                 "audio":  "voice/refs/utt0102.wav",
+                                 "text_file":  "voice/refs/utt0102.txt",
+                                 "lang":  "hi"
+                             },
+                 "utt0002":  {
+                                 "audio":  "voice/refs/utt0002.wav",
+                                 "text_file":  "voice/refs/utt0002.txt",
+                                 "lang":  "en"
+                             },
+                 "xtr0072":  {
+                                 "audio":  "voice/refs/xtr0072.wav",
+                                 "text_file":  "voice/refs/xtr0072.txt",
+                                 "lang":  "hi"
+                             },
+                 "xtr0046":  {
+                                 "audio":  "voice/refs/xtr0046.wav",
+                                 "text_file":  "voice/refs/xtr0046.txt",
+                                 "lang":  "hi"
+                             },
+                 "xtr0030":  {
+                                 "audio":  "voice/refs/xtr0030.wav",
+                                 "text_file":  "voice/refs/xtr0030.txt",
+                                 "lang":  "hi"
+                             },
+                 "xtr0016":  {
+                                 "audio":  "voice/refs/xtr0016.wav",
+                                 "text_file":  "voice/refs/xtr0016.txt",
+                                 "lang":  "hi"
+                             },
+                 "xtr0013":  {
+                                 "audio":  "voice/refs/xtr0013.wav",
+                                 "text_file":  "voice/refs/xtr0013.txt",
+                                 "lang":  "hi"
+                             }
+             },
+    "default_ref":  {
+                        "hi":  "xtr0061",
+                        "en":  "utt0002"
+                    },
+    "english_mode":  "devanagari",
+    "default_seed":  1,
+    "max_seed_retries":  4,
+    "sample_rate":  24000,
+    "output_sample_rate":  48000,
+    "gap_in_cue_sec":  0.22,
+    "gap_between_cues_sec":  0.3,
+    "gap_between_paragraphs_sec":  0.6,
+    "max_chunk_chars":  150,
+    "tempo_cap":  1.12,
+    "target_lufs":  -16.0,
+    "true_peak_db":  -1.5,
+    "loudness_range":  11.0,
+    "silence_floor_db":  -45.0,
+    "keep_edge_silence_sec":  0.08,
+    "rate_stats":  {
+                       "hi":  {
+                                  "median":  9.79,
+                                  "lo":  4.54,
+                                  "hi":  16.82,
+                                  "n":  325
+                              },
+                       "en":  {
+                                  "median":  11.76,
+                                  "lo":  6.31,
+                                  "hi":  19.3,
+                                  "n":  101
+                              }
+                   },
+    "training_data":  {
+                          "note":  "Only needed if you re-train. Point these at your own data.",
+                          "raw_jsonl":  "",
+                          "extra_jsonl":  "",
+                          "deva_txt":  "",
+                          "data_root":  "",
+                          "en_deva_txt":  "",
+                          "en_new_jsonl":  ""
+                      }
+}
