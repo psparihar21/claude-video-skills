@@ -15,10 +15,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      # full-history scan with the official image: works after force-pushes, unlike the action's partial scan
       - name: gitleaks (secrets in all history)
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: docker run --rm -v "$PWD:/repo" zricethezav/gitleaks:v8.24.3 git /repo --redact --verbose --exit-code 1
 
       - uses: actions/setup-python@v5
         with:
