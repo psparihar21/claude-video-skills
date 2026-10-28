@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" data-composition-variables='[
+  {"id":"note","type":"string","label":"Game name","default":"PS5 Gameplay"},
+  {"id":"tag","type":"string","label":"Small label","default":"NOW PLAYING"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920, height=1080" />
+  <title>Pushpstation intro long</title>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <link rel="stylesheet" href="brand.css" />
+  <style>
+    .line { position: absolute; height: 5px; }
+    #lockup { position: absolute; left: 0; top: 330px; width: 1920px; display: flex; justify-content: center; align-items: center; gap: 40px; }
+    #em-wrap { position: relative; width: 180px; height: 180px; }
+    #em { position: relative; width: 180px; height: 180px; }
+    #em > span { font-size: 140px; }
+    #logo-wrap { position: relative; overflow: hidden; transform: skewX(-8deg); padding: 0 10px; }
+    #logo { font-size: 210px; color: #fff; }
+    #sh { left: 0; }
+    #chips { position: absolute; left: 0; top: 630px; width: 1920px; display: flex; justify-content: center; align-items: center; gap: 22px; }
+    #chips .chip { position: relative; }
+    #now { height: 84px; padding: 0 38px; font-size: 44px; }
+    #game { height: 116px; padding: 0 54px; font-size: 84px; }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="intro-long" data-start="0" data-duration="2.9" data-width="1920" data-height="1080">
+    <div id="grp" class="clip" data-start="0" data-duration="2.9" style="position:absolute;inset:0">
+      <div class="wipe"><div id="slab" class="slab"></div></div>
+      <div id="lines"></div>
+      <div id="lockup">
+        <div id="em-wrap"><div id="em" class="emblem"><span>P</span></div></div>
+        <div id="logo-wrap"><div id="logo" class="big">PUSHPSTATION</div><div id="sh" class="shine"></div></div>
+      </div>
+      <div id="chips">
+        <div id="now" class="chip v small"><span data-var-text="tag">NOW PLAYING</span></div>
+        <div id="game" class="chip y big"><span id="game-t" data-var-text="note">PS5 Gameplay</span></div>
+      </div>
+    </div>
+  </div>
+  <script src="brand.js"></script>
+  <script>
+    document.fonts.ready.then(() => {
+      buildSlabs();
+      splitChars("#logo");
+      fit("#game-t", 1300);
+      // speed lines streak across while the frame is covered
+      const L = [[250, 520, "#6C2BFF"], [300, 760, "#FFD60A"], [905, 640, "#FFFFFF"], [960, 380, "#6C2BFF"], [180, 300, "#FFFFFF"], [850, 900, "#FFD60A"]];
+      document.getElementById("lines").innerHTML = L.map(([y, w, c], i) =>
+        `<div class="line" id="ln${i}" style="top:${y}px;width:${w}px;background:${c};opacity:.55"></div>`).join("");
+      const tl = gsap.timeline({ paused: true });
+      slabIn(tl, "#slab", 0);
+      L.forEach((l, i) => tl.fromTo(`#ln${i}`, { x: -l[1] - 50 }, { x: 1980, duration: 0.9 + (i % 3) * 0.25, ease: "none", repeat: 1 }, 0.35 + i * 0.07));
+      tl.fromTo("#em-wrap", { scale: 0, rotation: -120 }, { scale: 1, rotation: 0, duration: 0.5, ease: "back.out(1.8)" }, 0.28);
+      charsIn(tl, "#logo", 0.36);
+      chipIn(tl, "#now", 0.72);
+      chipIn(tl, "#game", 0.84);
+      shine(tl, "#sh", 1.0, 1300);
+      tl.fromTo("#em-wrap", { scale: 1 }, { scale: 1.08, duration: 0.12, yoyo: true, repeat: 1 }, 1.05);
+      charsOut(tl, "#logo", 2.12);
+      tl.to(["#now", "#game"], { scaleX: 0, duration: 0.22, ease: "power3.in", stagger: 0.04 }, 2.1);
+      tl.to("#em-wrap", { scale: 0, rotation: 90, duration: 0.25, ease: "power3.in" }, 2.16);
+      tl.to("#lines", { opacity: 0, duration: 0.15 }, 2.2);
+      slabOut(tl, "#slab", 2.3);
+      window.__timelines["intro-long"] = tl;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" data-composition-variables='[
+  {"id":"note","type":"string","label":"Game name","default":"PS5 Gameplay"},
+  {"id":"tag","type":"string","label":"Small label","default":"NOW PLAYING"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, height=1920" />
+  <title>Pushpstation intro short</title>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <link rel="stylesheet" href="brand.css" />
+  <style>
+    /* a slanted band in y 280-640: below the Shorts top bar, above the action centre */
+    #band { position: absolute; left: -100px; top: 300px; width: 1280px; height: 330px; transform: rotate(-6deg); }
+    .strip { position: absolute; left: 0; width: 1280px; }
+    #s-y { top: 0; height: 330px; background: #FFD60A; }
+    #s-v { top: 16px; height: 298px; background: #6C2BFF; }
+    #s-d { top: 34px; height: 262px; background: #0B0820;
+      background-image: repeating-linear-gradient(-68deg, rgba(108,43,255,.16) 0 22px, transparent 22px 120px); }
+    #content { position: absolute; left: 0; top: 340px; width: 1080px; height: 260px; transform: rotate(-6deg); }
+    #em-wrap { position: absolute; left: 96px; top: 70px; width: 130px; height: 130px; }
+    #em { position: relative; width: 130px; height: 130px; }
+    #em > span { font-size: 100px; }
+    #tag { left: 262px; top: 34px; height: 60px; padding: 0 28px; font-size: 32px; }
+    #name-wrap { position: absolute; left: 262px; top: 106px; overflow: hidden; }
+    #name { font-size: 112px; color: #fff; }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="intro-short" data-start="0" data-duration="2.6" data-width="1080" data-height="1920">
+    <div id="grp" class="clip" data-start="0" data-duration="2.6" style="position:absolute;inset:0">
+      <div id="band"><div id="s-y" class="strip"></div><div id="s-v" class="strip"></div><div id="s-d" class="strip"></div></div>
+      <div id="content">
+        <div id="em-wrap"><div id="em" class="emblem"><span>P</span></div></div>
+        <div id="tag" class="chip y small"><span data-var-text="tag">NOW PLAYING</span></div>
+        <div id="name-wrap"><div id="name" class="big" data-var-text="note">PS5 Gameplay</div></div>
+      </div>
+    </div>
+  </div>
+  <script src="brand.js"></script>
+  <script>
+    document.fonts.ready.then(() => {
+      fit("#name", 740);
+      splitChars("#name");
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#s-y", { x: -1400 }, { x: 0, duration: 0.34, ease: "power4.out" }, 0);
+      tl.fromTo("#s-v", { x: -1400 }, { x: 0, duration: 0.34, ease: "power4.out" }, 0.05);
+      tl.fromTo("#s-d", { x: -1400 }, { x: 0, duration: 0.34, ease: "power4.out" }, 0.1);
+      tl.fromTo("#em-wrap", { scale: 0, rotation: -120 }, { scale: 1, rotation: 0, duration: 0.45, ease: "back.out(1.8)" }, 0.24);
+      chipIn(tl, "#tag", 0.3);
+      charsIn(tl, "#name", 0.36, 0.025);
+      tl.to("#content", { x: 1300, duration: 0.36, ease: "power3.in" }, 2.05);
+      tl.to(["#s-d", "#s-v", "#s-y"], { x: 1400, duration: 0.36, ease: "power3.in", stagger: 0.05 }, 2.1);
+      window.__timelines["intro-short"] = tl;
+    });
+  </script>
+</body>
+</html>

@@ -33,6 +33,39 @@ Follow the "Quality bar", "Graphic look", "Graphic set", "Camera feel", "Music" 
 - **PowerShell traps:** variable names are case-insensitive (`$S` and `$s`, `$H` and `$h` collide). A one-item `@(@(...))` flattens. Do not delete inside `05-graphics`. Run long renders from a `.ps1` file.
 - **Deliver:** final with audio, silent picture-lock, music and natural stems, `voiceover-script-*.md`, license line, loudness numbers. HyperFrames 0.8.160 is now installed globally (npm, free, local; the user approved it on 2026-10-15). Use it for animated graphics (add `%APPDATA%\npm` to PATH, set `HYPERFRAMES_SKIP_SKILLS=1`, then `hyperframes init NAME --example blank --resolution 4k --non-interactive`, `hyperframes lint`, `hyperframes render --gpu --browser-gpu`). Docker is not installed and not needed. Smoke render of a 10 s blank project took 18 s. The Chrome + ffmpeg card method above stays as the fallback.
 
+## Hook and retention (every video, studied 2026-10-29)
+
+Read `references/hook-and-retention.md` before planning a cut. In short: open on the best clip (starting just before its peak) so it works muted and proves the title in 5 s; open a question early and pay it off late; edit the first 30 s hardest and fastest; change what is on screen every few seconds without cutting for its own sake; use tight jump cuts; every graphic enters with motion or a sound; keep one look throughout. In edit-decision.md, list the cold-open clips (source times plus why each one hooks) and where the hook ends (that is `-IntroAt`).
+
+## Pushpstation intro and outro (every video, added 2026-10-29)
+
+`brand/` holds the channel's gaming pack (v2, 2026-10-29). It was built after studying Techno Gamerz, Ujjwal, Total Gaming, Live Insaan and GamerFleet:
+- **Colours:** deep navy #0B0820, electric violet #6C2BFF, hot yellow #FFD60A, white; the subscribe button is YouTube red #FF0033.
+- **Shapes:** sharp 22-degree slash bars, slanted chips, and a "P" emblem (a violet slanted block with a yellow cut corner).
+- **Type:** Anton for the big condensed text, Rajdhani Bold for labels.
+- **Sound:** synthesised whoosh, impact, tick, click, pop and bell.
+- **Motion:** smooth eases only; no wobble or shake.
+
+| Piece | Format | What it does |
+|---|---|---|
+| `intro_long` | 16:9, 2.9 s overlay | Slash bars sweep across, the emblem spins in, the PUSHPSTATION letters rise, then the "NOW PLAYING" and game-name chips and a shine pass; it clears and the slashes sweep off. Placed where the cold-open hook ends. |
+| `transition` | 16:9, 1.0 s | The slash bars cover the frame at 0.40-0.52 s with an emblem flash. Centred on a cut, it is used for section changes (`-Cuts`), not every cut. |
+| `subscribe` | 16:9, 3.4 s, bottom centre | The red SUBSCRIBE pill rises, a cursor clicks it, it turns grey SUBSCRIBED, the bell pops and rings. Placed on the sign-off line (`-SubAt`, default 6 s before the end). |
+| `outro_long` | 16:9, 15 s | A slash wipe starts 0.42 s before the last frame and leads into a full-frame end screen: logo, next-video note, two corner-bracket slots for YouTube's end-screen videos (720x405 at 150,250 and 1050,250), and a rotating ring for the subscribe circle (centre 960,905). |
+| `intro_short` | 9:16, 2.6 s overlay at 0 s | A slanted yellow/violet/navy band at y 280-640 with the emblem, a "NOW PLAYING" chip and the game name, over the hook action. |
+| `outro_short` | 9:16, last 3.6 s | A slash wipe into a full-frame card: emblem, PUSHPSTATION, FULL VIDEO, an ON THE CHANNEL chip, and the subscribe click with the bell. |
+
+Apply it as the last step, after picture lock and the mix and before packaging:
+```powershell
+& "$HOME\.claude\skills\video-edit\brand\brand_wrap.ps1" -Video final.mp4 -Mode long -IntroAt <hook end s> -Note "<Game name>" [-Tag "NOW PLAYING"] [-Cuts "95.2,301.8"] [-SubAt <sign-off s>] [-Next "NEXT: <game>"] [-Right "BEST VIDEO"] [-Music bed.mp3] -Out final-branded.mp4
+& "$HOME\.claude\skills\video-edit\brand\brand_wrap.ps1" -Video short.mp4 -Mode short -Note "<Game name>" [-Tag "PS PLUS"] [-NoOutro] -Out short-branded.mp4
+```
+- The script renders the graphics with HyperFrames at the video's own resolution (alpha ProRes), composites them, adds the SFX, encodes with NVENC cq 16 (HEVC stays HEVC), applies a -2 dB limiter and prints duration and loudness. A long video grows by 14.58 s. Tested at 1080p60 and 4K HEVC 60 (a 25 s 4K clip took 155 s).
+- `-Cuts`: section changes only (a new game, a new chapter), usually 2-6 per long video. The cut must sit exactly at the given time, because the frame is covered for only 0.12 s around it.
+- Before running it, drop any older title, end or subscribe cards from the edit so nothing stacks. Then look at frames at the hook end +1 s, at each cut, during the subscribe click, and in the end screen.
+- The end screen plays over the muffled audio of the last 15 s unless `-Music` (a SnipSound bed) is given. In YouTube Studio the user places the two videos on the corner brackets and the subscribe element on the ring.
+- Change the look in `brand/hf/*.html` (shared helpers in `brand.css` and `brand.js`). After moving any animation time, update the times in `brand/make_sfx.sh` and re-run it.
+
 ## Hiding private info (verified 2026-10-16)
 
 - Track the target with a template match: pull gray 960x540 frames at 10 fps through ffmpeg rawvideo into numpy, FFT normalised cross-correlation against a template cut from one clear frame. Keep matches with score above 0.75, median-filter, interpolate, and hold the nearest sample with a bigger box in gaps. Write a 960x540 gray mask video (FFV1), one frame per output frame.
@@ -158,6 +191,7 @@ video-edit/
 8. **Graphics.** HyperFrames for the hook title and section lower thirds. Captions come from `captions.py`, run on `transcript.roman.json` for Hindi/Hinglish (Roman letters per My style) or on `transcript.json` for English. Check the SRT has no Devanagari left before burning. The style follows My style ("clean minimal" = `captions.ass` burned with libass). Use HyperFrames captions only if the user picks an animated style. Captions sit in the lower third, off the facecam and HUD (`--top` or `--margin-v` to move them). Always ship `captions.srt`.
 9. **Finish** in FFmpeg with CUDA decode and NVENC encode. Match the source frame rate; never retime 60 fps gameplay to 30. Measure, compare against the spec, and re-export on any failure.
 10. **Short** (when long form > 60 s): one self-contained idea, reframed to 9:16, its own captions (`--vertical`), its own loudness check.
+11. **Brand.** Run `brand/brand_wrap.ps1` on every final, long and Short (see "Pushpstation intro and outro"). The checklist names the `-IntroAt` used.
 
 ## Delivery specs, measured, not estimated
 
@@ -166,7 +200,8 @@ video-edit/
 - Integrated loudness -14 LUFS ±1 LU, true peak ≤ -1.5 dBTP. Measure with ffmpeg ebur128 and paste the numbers.
 - Voice intelligible over music. Music stays under the voice.
 - Caption timing follows word timestamps. No caption over a facecam or a gameplay HUD element the viewer needs.
-- First picture of a gameplay video is action, within the first 3 seconds.
+- First picture of a gameplay video is action, within the first 3 seconds. No logo or greeting before the hook; the brand intro comes after it.
+- Every final carries the brand intro and outro (long: 15 s end screen appended; Short: overlays only).
 - Tech video states the tool name on screen in the first 5 seconds.
 
 Reject and re-export if any measured spec fails.
