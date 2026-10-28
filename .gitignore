@@ -14,3 +14,5 @@ skills/own-voice-render/config.backup.json
 *.pt
 cache/
 skills/ps5-obs-setup/assets/known-good/
+# synthesised brand sound effects (generated tones, no voice) are needed by brand_wrap.ps1
+!skills/video-edit/brand/sfx/*.wav

@@ -39,6 +39,8 @@ BLOCKED_PATHS = re.compile(
     r"|own-voice-render/voice/refs/.+\.(wav|txt)$|ps5-obs-setup/assets/known-good/|\.(pem|key|pfx|p12)$"
 )
 ALLOWED_BLOCKED = {"skills/own-voice-render/voice/refs/README.md"}
+# Third-party licence texts must ship verbatim (they carry the font foundry's public contact address).
+THIRD_PARTY_TEXT = re.compile(r"(^|/)fonts/OFL[^/]*\.txt$")
 TEXT_LIMIT = 2_000_000
 
 
@@ -64,6 +66,8 @@ def scan(paths: list[str]) -> list[str]:
     for p in paths:
         if p == "tools/privacy_scan.py":
             continue  # holds the patterns themselves
+        if THIRD_PARTY_TEXT.search(p):
+            continue
         if BLOCKED_PATHS.search(p) and p not in ALLOWED_BLOCKED:
             hits.append(f"{p}: personal file must not be committed")
             continue
@@ -89,6 +93,8 @@ def self_test() -> None:
     assert BLOCKED_PATHS.search("skills/own-voice-render/config.json")
     assert BLOCKED_PATHS.search("skills/own-voice-render/voice/refs/a.wav")
     assert not BLOCKED_PATHS.search("skills/own-voice-render/config.example.json")
+    assert THIRD_PARTY_TEXT.search("skills/video-edit/brand/hf/fonts/OFL-Anton.txt")
+    assert not THIRD_PARTY_TEXT.search("skills/video-edit/notes.txt")
     print("self-test ok")
 
 

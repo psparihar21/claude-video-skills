@@ -24,6 +24,25 @@ in Hindi, Hinglish or English.
 | `scripts/parakeet_to_vtc.py` | Parakeet transcript → video-timeline-copilot format |
 | `scripts/romanize.py` | Devanagari → Roman Hinglish per word, timestamps kept (`draft` then `apply`) |
 | `scripts/captions.py` | Remaps words through the cut, writes `captions.srt`, `captions.ass`, `words.out.json` |
+| `references/hook-and-retention.md` | Hook, pacing and retention method, studied from 5 top editing tutorials and 5 big Indian gaming channels |
+| `brand/brand_wrap.ps1` | Adds the channel's intro, slash transitions, subscribe click and end screen to a finished long video or Short |
+| `brand/hf/*.html` | The HyperFrames graphics: `intro_long`, `transition`, `subscribe`, `outro_long` (16:9) and `intro_short`, `outro_short` (9:16), with shared `brand.css` / `brand.js` |
+| `brand/hf/fonts/` | Anton and Rajdhani Bold (SIL Open Font License, licence files included) |
+| `brand/make_sfx.sh` | Synthesises the whoosh, impact, click, pop and bell sounds into `brand/sfx/*.wav` (no sound library needed) |
+
+## Channel intro and outro (brand pack)
+
+Every final goes through `brand/brand_wrap.ps1`:
+
+```powershell
+.\brand\brand_wrap.ps1 -Video final.mp4 -Mode long -IntroAt 6.5 -Note "Game name" -Cuts "95.2,301.8" -Out final-branded.mp4
+.\brand\brand_wrap.ps1 -Video short.mp4 -Mode short -Note "Game name" -Out short-branded.mp4
+```
+
+- **Long video:** a 2.9 s sting where the cold-open hook ends (`-IntroAt`), a 1 s slash transition at each section change (`-Cuts`), a subscribe-click animation on the sign-off (`-SubAt`), and a 15 s end screen whose slots line up with YouTube's end-screen elements.
+- **Short:** a "NOW PLAYING" band over the hook at 0 s and a 3.6 s end card. `-NoOutro` skips the end card.
+
+The script renders the graphics locally with HyperFrames (alpha ProRes) at the video's own resolution, encodes with NVENC and prints loudness. To make the pack yours, change the colours in `brand/hf/brand.css` and the channel name in the `.html` files. If you move an animation time, update `brand/make_sfx.sh` and re-run it.
 
 ## Requirements
 

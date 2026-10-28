@@ -16,7 +16,7 @@ No accounts, API keys or personal data are stored in this repo, and CI checks ev
 
 | Skill | What it does | Stack |
 |---|---|---|
-| [`video-edit`](skills/video-edit/) | Editing desk: transcribe, plan the cut, approval gate, captions, sound, graphics, loudness-checked export. Learns your style through `RULES.md`. | FFmpeg (CUDA/NVENC), faster-whisper, Parakeet, vtc, HyperFrames, SnipSound |
+| [`video-edit`](skills/video-edit/) | Editing desk: transcribe, plan the cut, approval gate, captions, sound, graphics, loudness-checked export. Learns your style through `RULES.md`. Ships a channel brand pack (intro, slash transitions, subscribe click, end screen) applied to every video. | FFmpeg (CUDA/NVENC), faster-whisper, Parakeet, vtc, HyperFrames, SnipSound |
 | [`faceless-vo-script`](skills/faceless-vo-script/) | Timed Hinglish / Indian-English voiceover for a locked edit, validated against the cut; teleprompter, captions, TTS brief and an Indian neural voice track. | Python, Edge TTS (no API key), JSON schemas |
 | [`own-voice-render`](skills/own-voice-render/) | A finished script as audio in **your own cloned voice**, locally on an NVIDIA GPU. | Python, IndicF5 (fine-tuned), ffmpeg |
 | [`video-packaging`](skills/video-packaging/) | One thumbnail / cover from a **real frame**, plus title, caption and description, gated on phone-size legibility. | Python, Pillow, numpy, ffmpeg, Windows OCR, optional Canva |
