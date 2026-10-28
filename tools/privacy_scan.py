@@ -79,7 +79,7 @@ def scan(paths: list[str]) -> list[str]:
 
 def self_test() -> None:
     bad = ["C:\\Users\\jane\\Videos", "/c/Users/jane/x/", "mail jane.doe@gmail.com",
-           "hf_" + "a" * 34, "sk-ant-" + "b" * 30, "https://vdo.ninja/?view=abc123x", "api_" + "key = 'abcd1234efgh'"]
+           "hf_" + "a" * 34, "sk-ant-" + "b" * 30, "https://vdo.ninja/?view=abc123x", "api_key = " + repr("abcd" + "1234efgh")]
     good = ["%USERPROFILE%\\Videos", "C:\\Users\\<you>\\x", "1+me@users.noreply.github.com",
             "https://vdo.ninja/?view=<private id>", "api_key = '<your key>'", "~/.claude/skills"]
     for s in bad:
