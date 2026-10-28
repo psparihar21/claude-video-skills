@@ -1,0 +1,43 @@
+name: security
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: gitleaks (secrets in all history)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: privacy scan (paths, e-mails, keys, personal files)
+        run: |
+          python tools/privacy_scan.py --self-test
+          python tools/privacy_scan.py
+
+      - name: scripts compile and parse
+        shell: bash
+        run: |
+          git ls-files '*.py' | xargs -d '\n' python -m py_compile
+          git ls-files '*.sh' .githooks/pre-commit | xargs -d '\n' -n1 bash -n
+          pwsh -NoProfile -Command '$bad=0; git ls-files "*.ps1" | % { $e=$null; [void][Management.Automation.Language.Parser]::ParseFile((Resolve-Path $_),[ref]$null,[ref]$e); if($e){ "$_ : $e"; $bad++ } }; exit $bad'
+
+      - name: skill self-tests
+        run: |
+          pip install -q numpy
+          python skills/faceless-vo-script/scripts/validate_script.py --self-test
+          python skills/own-voice-render/tests/test_core.py
