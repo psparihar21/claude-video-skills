@@ -1,3 +1,3 @@
-# self-test fixture in the scanner, not a real key
-ab2ccd6a50616a7c828abc7023f7b156e89d278b:tools/privacy_scan.py:generic-api-key:82
-489c5e876f1b4fb6e3c382aea7902ca28387216c:tools/privacy_scan.py:generic-api-key:82
+# self-test fixtures in the scanner, not real keys
+c5d35e6c45f798c0d29ee12b37581226308897ee:tools/privacy_scan.py:generic-api-key:82
+fdf3782820ec8cda56d7432359d4e35262d9a4c0:tools/privacy_scan.py:generic-api-key:82
