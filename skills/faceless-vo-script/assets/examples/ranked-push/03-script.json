@@ -9,6 +9,7 @@
   "persona": "Pan-India observer, late 20s, close-mic, slight smile, no shout. Not the player.",
   "mic_note": "One hand from the mic. Land the Hindi connectors at the same volume as the English. Leave the gap before the end card.",
   "pronounce": [],
+  "hook": {"shape": "result-first", "loop_closes_cue": "c05"},
   "cues": [
     {
       "id": "c01",

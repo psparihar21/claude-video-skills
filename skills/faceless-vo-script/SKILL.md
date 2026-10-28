@@ -16,7 +16,9 @@ You write the vocal track for a video that is already edited. The picture, the c
 
 Default register is **Indian English**. Switch to **Hinglish** when the user asks for Hinglish, Hindi-English, or a mixed desi voice. "Majorly Indian English" means Indian English.
 
-Before you write a spoken line, read `references/language.md` and the one section of `references/formats.md` that matches the format. Before you write files, read `references/output-contract.md`. Before you tell the user it is done, read `references/qa.md` and run the validator. Read `references/field-notes.md` only when you are changing this skill, not when you are writing a script.
+**The user's own channel (Pushpstation): read `~/.claude/channel/style-card.md` first.** It is measured from their own recorded voice. When the user will voice the script (themselves, `own-voice-render`, or the Chatterbox voice), the card wins over this skill's defaults: Hinglish in English letters, always "aap" (never "tum"), its per-item and recommendation phrasing ("phir hai …, ye ek … game hai", "agar aapko … toh aap ye zaroor …"), its pace for fitting cues (about 130 wpm long, 150 wpm Shorts), its never-words, and its opener and outro. Hook first; its greeting ("Pushpstation pe swagat hai doston") may follow the hook in long videos only. Mark 1–2 `[your take]` spots per section for their own reaction.
+
+Before you write a spoken line, read `references/language.md`, `references/hook-retention.md` and the one section of `references/formats.md` that matches the format. Before you write files, read `references/output-contract.md`. Before you tell the user it is done, read `references/qa.md` and run the validator. Read `references/field-notes.md` only when you are changing this skill, not when you are writing a script.
 
 ## What you produce
 
@@ -36,7 +38,7 @@ The teleprompter, the captions, the record notes, and the TTS brief are renders.
 - Do not re-cut, re-order, or "improve" the edit. If a line cannot fit, write a shorter line. Put a recut request in `recut_requests` and keep writing to the locked cut.
 - Do not invent what is on screen. If you did not see it in a frame, an editor note, or on-screen text, you do not know it.
 - Do not invent facts, stats, prices, patch notes, or loot numbers. A number with no source becomes `[FACT: what you still need]`, and that cue cannot ship as final.
-- Do not welcome people. No "in this video", "hey guys", "to dosto", "bhai log", "smash the like", "buckle up", "let's dive in".
+- Do not welcome people. No "in this video", "hey guys", "to dosto", "bhai log", "smash the like", "buckle up", "let's dive in". (Only exception: the style card's greeting after the hook in a long video, and its outro.)
 - Do not narrate a face, a creator, or "as you can see me". Nobody is on camera. The voice is an observer, not a vlogger.
 - Do not send the script to a paid voice API. The local voice file comes from `scripts/speak.py` (Edge TTS, Indian English voices, no key). ElevenLabs settings live in the brief for the user to paste themselves.
 
@@ -68,7 +70,8 @@ If they did not say, infer it. Story over a driving/parkour/farming clip is `sto
 
 | They said | You write |
 | --- | --- |
-| Nothing about language | `indian-english` |
+| Nothing about language, and a style card exists at `~/.claude/channel/style-card.md` | the card's register (`hinglish` for Pushpstation) |
+| Nothing about language, no style card | `indian-english` |
 | Hinglish, Hindi-English, desi mix | `hinglish` |
 | Hindi | `hinglish`, and tell them this skill stays mixed on purpose |
 | A city flavor | Pan-India base plus that flavor, lightly |
@@ -103,7 +106,7 @@ Follow this order. Do not draft the spoken track in your head and then assign ti
    - what the voice must not repeat (burned-in text, obvious action)
    - spoken room, in seconds, after the air rules below
    - `confidence`: high (frame or specific note), medium (detailed note, no frame), low (vague)
-4. **Write `03-script.json`.** One cue per spoken breath. Schema: `assets/script-package.schema.json`. Spoken text is the only thing that will be said. Performance notes live in `performance`, never inside `spoken`.
+4. **Write `03-script.json`.** Fill the `hook` block (`shape`, `loop_closes_cue`; see `references/hook-retention.md`). One cue per spoken breath. Schema: `assets/script-package.schema.json`. Spoken text is the only thing that will be said. Performance notes live in `performance`, never inside `spoken`.
 5. **Render.**
 
    ```bash

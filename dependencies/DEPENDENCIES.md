@@ -1,6 +1,6 @@
 # Dependencies
 
-Everything the three skills need, so they work on a fresh machine. Third-party items are **not copied into this repo**;
+Everything the skills need, so they work on a fresh machine. Third-party items are **not copied into this repo**;
 `install.ps1` fetches them from their original authors, who own them and set their licenses.
 
 ## Third-party Claude skills
@@ -24,7 +24,11 @@ Everything the three skills need, so they work on a fresh machine. Third-party i
 | [uv](https://docs.astral.sh/uv/) | video-packaging, video-edit | `winget install astral-sh.uv` |
 | Python 3.10+ | all scripts | `winget install Python.Python.3.12` |
 | NVIDIA GPU + driver (optional; CPU fallback) | video-edit | vendor driver |
-| Google Chrome | video-edit research | optional |
+| Google Chrome | video-edit research, gameplay-longform-shorts cards (headless) | `winget install Google.Chrome` |
+| [yt-dlp](https://github.com/yt-dlp/yt-dlp) in `~/.local/bin` | yt-reference, agent-reach | `uv tool install yt-dlp` |
+| OBS Studio + Aitum Vertical plugin | ps5-obs-setup | `winget install OBSProject.OBSStudio` |
+| DeepFilterNet in `~/.deepfilter-venv` (Python 3.11, CPU torch 2.1.2) | voice-enhance | see `skills/voice-enhance/SKILL.md` |
+| Agent Reach in `~/.agent-reach-venv` (optional) | agent-reach | see `skills/agent-reach/SKILL.md` |
 
 ## Python packages
 

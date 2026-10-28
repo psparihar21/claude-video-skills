@@ -1,6 +1,6 @@
 # Claude Video Skills
 
-Four [Claude Code](https://claude.com/claude-code) skills that take a raw Hindi / Hinglish / English video
+Four core [Claude Code](https://claude.com/claude-code) skills that take a raw Hindi / Hinglish / English video
 from **cut → captions → voiceover → thumbnail**, on a Windows PC, using only free tools.
 
 Built and tested on real footage (RTX 5070 laptop, Windows 11). Each skill is a self-contained folder
@@ -12,6 +12,20 @@ with a `SKILL.md` (the instructions Claude follows), helper scripts, references 
 | [`faceless-vo-script`](skills/faceless-vo-script/) | Writes a timed Hinglish / Indian-English voiceover for a locked edit, validates timing against the cut, renders teleprompter, captions, TTS brief and an Indian neural voice track. | Python, Edge TTS (no API key), JSON schemas |
 | [`own-voice-render`](skills/own-voice-render/) | Turns a finished script into audio in **your own cloned voice** (Hinglish/Hindi/English), locally on an NVIDIA GPU: Roman-to-Devanagari conversion, cue fitting, loudness normalisation, QA report. | Python, IndicF5 (fine-tuned), ffmpeg |
 | [`video-packaging`](skills/video-packaging/) | Builds one production-ready thumbnail / cover from a **real frame** of the video, plus title, caption and description. Skips frames with burned-in text, crops around the subject, gates on phone-size legibility. | Python, Pillow, numpy, ffmpeg, Windows OCR, optional Canva |
+
+More skills built on top of these four:
+
+| Skill | What it does |
+|---|---|
+| [`video-pipeline`](skills/video-pipeline/) | One video in, everything out: chains video-edit, clipify-style Shorts, voiceover and packaging. |
+| [`gameplay-longform-shorts`](skills/gameplay-longform-shorts/) | A PS5 OBS session (16:9 + Aitum 9:16) to a 4K long video and a fast Short, with cards and mix. |
+| [`poster-news-short`](skills/poster-news-short/) | Monthly news Short from key-art posters, own voice and music. Scripts are the worked examples. |
+| [`add-zooms`](skills/add-zooms/) | Punch-ins and Ken Burns pushes on word timestamps (ffmpeg only). |
+| [`find-broll`](skills/find-broll/) | Plans b-roll cutaways on spoken keywords, free sources only, approval before downloading. |
+| [`voice-enhance`](skills/voice-enhance/) | Local DeepFilterNet voice cleanup (denoise, declip, presence EQ). |
+| [`yt-reference`](skills/yt-reference/), [`agent-reach`](skills/agent-reach/) | Read a public YouTube video, reel or page by link (no logins, no cookies) and turn it into a shot list. |
+| [`yt-audit`](skills/yt-audit/), [`yt-plan`](skills/yt-plan/), [`yt-comment`](skills/yt-comment/) | Hook, title and retention audit; video planning; comment replies (drafts only, nothing is posted). Scripts adapted from youtube-agent-skill, license file included. |
+| [`ps5-obs-setup`](skills/ps5-obs-setup/) | Checks and repairs a PS5 + OBS recording setup. Machine-specific: run `restore.ps1 -Snapshot` to save your own known-good config (not shipped, it holds private device and camera-stream ids). |
 
 ## Pipeline
 

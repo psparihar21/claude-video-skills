@@ -13,3 +13,4 @@ skills/own-voice-render/config.json
 skills/own-voice-render/config.backup.json
 *.pt
 cache/
+skills/ps5-obs-setup/assets/known-good/

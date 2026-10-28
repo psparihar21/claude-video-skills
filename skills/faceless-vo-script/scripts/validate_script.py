@@ -80,6 +80,11 @@ BANNED = (
     "do the needful",
     "kindly",
     "it is to be noted",
+    "aaj hum",
+    "today we will",
+    "today i will",
+    "is video mein",
+    "aaj ke video",
 )
 CTA_WORDS = ("subscribe", "like kar", "follow for", "comment mein")
 FACT_MARK = "[FACT:"
@@ -324,6 +329,57 @@ def validate(edit: dict, script: dict) -> list[Finding]:
                 "No spoken cue between 2:30 and 3:30. Long faceless videos drop there. "
                 "Land a new stake on a shot in that window.",
             ))
+
+    hook_cues = [c for c in cues if c.get("role") == "hook"]
+    hook_meta = script.get("hook")
+    if hook_cues and not hook_meta:
+        findings.append(Finding(
+            "warn", "HOOK_SHAPE",
+            "No hook block in the script. Add hook.shape and hook.loop_closes_cue "
+            "(references/hook-retention.md).",
+        ))
+    if hook_meta and hook_cues:
+        first_hook = min(hook_cues, key=lambda c: float(c["in_sec"]))
+        closer = next((c for c in cues if c.get("id") == hook_meta.get("loop_closes_cue")), None)
+        if closer is None:
+            findings.append(Finding(
+                "error", "LOOP_UNCLOSED",
+                f"hook.loop_closes_cue '{hook_meta.get('loop_closes_cue')}' is not a cue. "
+                "Name the cue that pays off the hook's promise.",
+            ))
+        elif float(closer["in_sec"]) <= float(first_hook["out_sec"]) or closer.get("role") not in ("turn", "payoff"):
+            findings.append(Finding(
+                "error", "LOOP_UNCLOSED",
+                f"{closer['id']} must come after the hook and have role turn or payoff to close the loop.",
+            ))
+    if platform in SHORT_PLATFORMS and hook_cues:
+        first_hook = min(hook_cues, key=lambda c: float(c["in_sec"]))
+        hook_len = len(tokens(first_hook.get("spoken", "")))
+        if hook_len > 20 or float(first_hook["out_sec"]) - float(first_hook["in_sec"]) > 6:
+            findings.append(Finding(
+                "warn", "HOOK_LONG",
+                f"{first_hook['id']} is {hook_len} words. A Short hook should land in one breath (about 6 s, 20 words max).",
+            ))
+    if platform in SHORT_PLATFORMS and cues:
+        last = max(cues, key=lambda c: float(c["out_sec"]))
+        if last.get("role") == "cta":
+            findings.append(Finding(
+                "warn", "SHORT_OUTRO",
+                f"{last['id']} is a CTA at the end of a Short. End right after the payoff unless the edit has a CTA card; "
+                "a short callback to the hook is better for rewatch.",
+            ))
+    if platform == "youtube-long" and cues:
+        ordered = sorted(cues, key=lambda c: float(c["in_sec"]))
+        edges = [0.0] + [float(c["out_sec"]) for c in ordered]
+        starts = [float(c["in_sec"]) for c in ordered] + [duration]
+        for left, right in zip(edges, starts):
+            if right - left > 45 and not covered((left, right), silences, slack=2.0):
+                findings.append(Finding(
+                    "warn", "RETENTION_GAP",
+                    f"{right - left:.0f} s with no voice ({left:.0f}-{right:.0f}s) and no intentional_silence. "
+                    "Add a new stake or mark the silence.",
+                ))
+                break
 
     return findings
 

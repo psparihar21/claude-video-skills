@@ -35,7 +35,10 @@ def _abs(p: str) -> str:
 
 
 def load_config() -> dict:
-    cfg = json.loads((SKILL / "config.json").read_text(encoding="utf-8"))
+    path = SKILL / "config.json"
+    if not path.exists():  # fresh clone: config.json is personal and gitignored
+        path = SKILL / "config.example.json"
+    cfg = json.loads(path.read_text(encoding="utf-8"))
     for ref in cfg["refs"].values():
         ref["audio"] = _abs(ref["audio"])
         ref["text_file"] = _abs(ref["text_file"])

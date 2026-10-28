@@ -8,6 +8,7 @@
   "video_duration_sec": 18.0,
   "persona": "Pan-India observer, late 20s, close-mic, calm. Sounds like someone who has watched the VOD, not like a shoutcaster.",
   "mic_note": "Even pace. Stress the last content word of each sentence. Do not punch 'twenty'.",
+  "hook": {"shape": "result-first", "loop_closes_cue": "c03"},
   "cues": [
     {
       "id": "c01",

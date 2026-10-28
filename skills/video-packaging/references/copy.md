@@ -16,13 +16,17 @@ a number in analysis.json, or something the user said and the frames do not cont
 - Each under 60 characters. Count them.
 - Subject first. Sentence case. No clickbait you cannot back up with the frames.
 - Rank 1 is the best search phrase. Give one line per option with its character count.
+- Lint each with its thumbnail hook: `scripts/title.py --title "..." --thumb "..."`. Drop any title the hook repeats a word of. Keep the subject inside the first 40 characters (the mobile feed cut). At most two all-caps words. A number, name or date beats an adjective. The tool's 3-word thumbnail check is advisory; this skill's hook limits above still rule.
 
 ## YouTube description
 - Line 1 says what the video shows and stands alone in search. Under 100 characters is best.
 - Then 2–4 short lines: what happens, what changes, what it was made with **only if the user said so**.
 - No chapters if the video is under 60 seconds. For longer videos, add chapters only from timestamps
   you verified on the contact sheet. The first chapter is 0:00.
+  When a transcript exists (for example from video-edit), draft them with `scripts/chapters.py <srt> --target N`, which enforces 0:00, three or more, each 10 s or longer. Retitle every line as the promise of that section in 3–5 words.
 - At most 3 hashtags, on the last line.
+- Query test: write the three searches this video should win. The title and line 1 must carry their key words.
+- Tags (only if asked): spellings, names, game and tool names, abbreviations people type. 15 at most.
 - Under 120 words in total.
 - No "like and subscribe" unless the user asks.
 - If the copy names a game, console, or brand, add `Not affiliated with [owner].` as the last line before
@@ -61,3 +65,11 @@ Cable routing, monitor placement and final lighting.
 Not affiliated with Rockstar Games.
 #desksetup #timelapse #gamingsetup
 ```
+
+
+## Delivery and research (user rules, 2026-10-23)
+- Show titles, descriptions and captions **in chat in code blocks**, one block per item. Never save them as a file or doc (a saved copy was deleted when the user said so).
+- Before writing, search the web for the game or product facts (developer, publisher, release date, subscription tier, what it is) and for hashtag norms. Web search gave no search-volume data, so say so and never promise virality.
+- Gaming long description: line 1 = game + platform + subscription + language; one line of facts; one line of what is in the video; the next video; chapters; a `Not affiliated with` line naming developer, publisher and platform owner; 3 hashtags. Examples are in `gameplay-longform-shorts/references/choices.md`.
+- Shorts: a Hinglish question title and an English title (#Shorts at the end), 2-3 hashtags. Instagram: hook in the first 125 characters, channel pointer, next video, 7 specific hashtags.
+- Tooling: write brief.json without a BOM (`[IO.File]::WriteAllText` with `UTF8Encoding($false)`), and never use a frame that shows a capture glitch (the vertical OBS file has a green bottom strip at times).

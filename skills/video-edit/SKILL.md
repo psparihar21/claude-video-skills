@@ -41,6 +41,19 @@ Follow the "Quality bar", "Graphic look", "Graphic set", "Camera feel", "Music" 
 - Keep unblurred renders out of the delivery folder. Move them to `OLD-name-visible-do-not-share`.
 - Windows `Settings > System > About`: record only the four spec tiles (crop 1262x320 starting 490,90 inside the window). Never include the profile name, the device name row, Device ID, Product ID or serial.
 
+## PS5 OBS recordings (set up 2026-10-17 to 2026-10-19)
+
+The user records PS5 gameplay in OBS through a UGREEN 25773 card. Recording problems and OBS changes belong to `/ps5-obs-setup`, not this skill.
+- **How to recognise one:** `%USERPROFILE%\Videos\PS5 Recordings\PS5 YYYY-MM-DD hh-mm-ss.mp4`, 1920x1080 60 fps HEVC, **3 AAC audio tracks**: `0:a:0` mix, `0:a:1` PS5 game only, `0:a:2` mic only (fifine, RNNoise, so it is digital silence between words). All 3 are flagged default; players often play the mic track, which looks like "no game audio" but is not.
+- **Audio:** build the final mix from `0:a:1` and `0:a:2`, never from the baked mix. Voice 3-5 dB above the game while talking: sidechain-duck the game under the voice (like the music duck), then add the SnipSound bed under both. Measure first: on 2026-10-18 the raw voice sat 14 dB under the game. Silent stretches on the game track are loading, menu or tutorial screens; check a frame before calling it a fault.
+- **Sync:** mic-vs-game and facecam delay are unmeasured. Before cutting on speech, check one clap or sharp word against the picture, and shift the mic with `adelay`/`atrim` if they disagree.
+- **Facecam:** a phone (Nothing Phone 2) picture cropped to a portrait box in the top-right (last 289x514 at 1615,35), kept outside the 9:16 centre band x 656-1264. **Measure the rectangle from frames on every job** (the user moves it): find the box edges with a column/row difference on a few frames. The laptop camera is the fallback, 16:9.
+- **Shorts layouts:** A = full-height centre crop `crop=608:1080:656:0` scaled to 1080x1920 with the facecam cut out and overlaid near the top (default for matches); B = facecam stacked above a wider game crop (reactions). Pan the centre crop to follow the ball or action only when the action leaves the band, using the eased crop-x expression; never cover the scoreboard.
+- **HUD:** FC 26 puts the clock and score at the top-right next to the facecam. Keep them readable in 16:9; in Shorts, crop or reposition them only if they carry the moment (a late goal).
+- **Deliver** with a single audio track (the new mix). Never ship a file with the 3 OBS tracks.
+
+- **Long video + Short from a horizontal and a vertical recording of one session:** use the gameplay-longform-shorts skill (cut list from speech and action energy, sync offset, segment-wise 4K render, cards, mix, packaging, cleanup).
+
 ## Free of cost — always
 
 Never buy, subscribe, start a paid trial, sign up for a paid API, or use a cloud render. If a step would need anything paid, stop and tell the user.

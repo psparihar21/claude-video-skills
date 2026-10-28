@@ -16,3 +16,6 @@ Read `02-script.md` aloud, under your breath, at the cue times. Then check:
 10. **Read-aloud.** The record notes in `05-record-notes.md` mention any `mein` / `main` trap and the pace of the hook. A human can record from that file alone without opening the JSON.
 
 If you change a word, you render and validate again. The reply to the user happens after that, not before.
+
+11. **Loop.** The `hook` block names the cue that pays off the hook's promise, and nothing earlier gives the answer away. Shorts end on the payoff (or a short callback to the hook), not on a sign-off. Long videos have a new stake or reversal about every 30-45 s; `RETENTION_GAP` warns past 45 s of silence.
+12. **After upload.** Open the video's retention graph in YouTube Studio. Note the first big drop (time and which cue). Put it in `references/field-notes.md` so the next hook learns from it.

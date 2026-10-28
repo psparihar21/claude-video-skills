@@ -14,6 +14,7 @@ after `pip install -r requirements.txt`). Reference files:
 - `references/platforms.md`: sizes, layouts, legibility rules, checks.
 - `references/copy.md`: hook, title, description and caption rules. Read it before writing copy.
 - `references/canva.md`: the verified Canva tool order. Read it before any Canva call.
+- `scripts/title.py` lints a title with its thumbnail hook; `scripts/chapters.py` drafts and validates chapters from an SRT, VTT or Whisper JSON. Both are plain Python (from youtube-agent-skill, MIT): `python "${CLAUDE_SKILL_DIR}/scripts/title.py" --title "..." --thumb "..."`.
 
 ## 1. Scope the request
 

@@ -43,6 +43,18 @@
       "type": "array",
       "items": { "$ref": "#/$defs/pronounce" }
     },
+    "hook": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["shape", "loop_closes_cue"],
+      "properties": {
+        "shape": {
+          "type": "string",
+          "enum": ["result-first", "question-stakes", "contrarian", "best-moment-teaser", "cold-open-rewind"]
+        },
+        "loop_closes_cue": { "type": "string", "pattern": "^c[0-9]+$" }
+      }
+    },
     "cues": {
       "type": "array",
       "minItems": 1,
