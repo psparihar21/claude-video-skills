@@ -1,91 +1,83 @@
 <!doctype html>
-<!-- Pushpstation channel art. Open as art.html#<asset> at the asset's size; render_art.ps1 screenshots each one. -->
+<!-- Pushpstation channel art (v4: cobalt, volt, coral, the four controller shapes). Open as art.html#<asset> at the asset's size; render_art.ps1 screenshots each one. -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="description" content="Pushpstation channel art: profile pictures, YouTube banner, watermark, Instagram highlight covers" />
+  <title>Pushpstation channel art</title>
   <link rel="stylesheet" href="../hf/brand.css" />
   <style>
-    html, body { background: transparent; }
-    .art { position: absolute; left: 0; top: 0; overflow: hidden; display: none; }
-    .bg { position: absolute; inset: 0; background: #0B0820; }
-    .stripes { position: absolute; inset: -50%; transform: rotate(-22deg);
-      background-image: repeating-linear-gradient(90deg, rgba(108,43,255,.16) 0 var(--s1), transparent var(--s1) var(--s2)); }
-    .slash { position: absolute; transform: skewX(-22deg); }
-    .emblem { position: absolute; }
-    .center { position: absolute; display: flex; align-items: center; justify-content: center; }
+    .art { position: absolute; left: 0; top: 0; overflow: hidden; display: none; background: var(--color-ground); }
+    .art .wall { top: 0; }
 
-    /* profile: 800x800 (YouTube) and 1080x1080 (Instagram); the emblem sits inside the circle crop */
-    #profile { width: var(--w); height: var(--w); --s1: calc(var(--w) * .045); --s2: calc(var(--w) * .14); }
-    #profile .emblem { left: 25%; top: 22%; width: 50%; height: 50%; }
-    #profile .emblem > span { font-size: calc(var(--w) * .40); }
-    #profile .bar1 { left: 16%; top: 75%; width: 44%; height: 3.2%; background: #FFD60A; }
-    #profile .bar2 { left: 40%; top: 81%; width: 38%; height: 3.2%; background: #6C2BFF; }
+    /* profile: 800 (YouTube) and 1080 (Instagram); the mark sits well inside the circle crop */
+    #profile { width: var(--w); height: var(--w); }
+    #profile .mark { left: 26%; top: 26%; width: 48%; height: 48%; }
 
-    /* banner: 2560x1440, everything that matters inside the 1546x423 safe area (507-2053, 508-931) */
-    #banner { width: 2560px; height: 1440px; --s1: 60px; --s2: 190px; }
-    #banner .lockup { left: 507px; top: 508px; width: 1546px; height: 423px; flex-direction: column; gap: 34px; }
-    #banner .row { display: flex; align-items: center; gap: 44px; }
-    #banner .emblem { position: relative; width: 210px; height: 210px; }
-    #banner .emblem > span { font-size: 168px; }
-    #banner .logo { font-size: 214px; color: #fff; transform: skewX(-8deg); }
-    #banner .chips { display: flex; gap: 22px; }
-    #banner .chips .chip { position: relative; height: 82px; padding: 0 40px; font-size: 42px; transform: skewX(-14deg); }
-    #banner .chips .chip > span { transform: skewX(14deg); }
-    #banner .s1 { left: -300px; top: 0; width: 520px; height: 1440px; background: #6C2BFF; }
-    #banner .s2 { left: 300px; top: 0; width: 70px; height: 1440px; background: #FFD60A; }
-    #banner .s3 { left: 2140px; top: 0; width: 70px; height: 1440px; background: #FFD60A; }
-    #banner .s4 { left: 2290px; top: 0; width: 600px; height: 1440px; background: #6C2BFF; }
-    #banner .s5 { left: 410px; top: 0; width: 14px; height: 1440px; background: #fff; }
+    /* banner 2560x1440: everything that matters inside the 1546x423 safe area (507-2053, 508-931) */
+    #banner { width: 2560px; height: 1440px; }
+    #banner .mark { left: 560px; top: 540px; width: 210px; height: 210px; }
+    #banner .name { position: absolute; left: 810px; top: 580px; font-size: 116px; }
+    #banner .kinds { position: absolute; left: 810px; top: 790px; display: flex; gap: 24px; }
+    #banner .kinds .tag { position: relative; height: 92px; font-size: 44px; box-shadow: 8px 8px 0 var(--color-shade); }
+    #banner .hint { position: absolute; left: 560px; top: 820px; font-size: 40px; color: var(--color-volt); }
+    #banner .big { position: absolute; }
+    #banner .b1 { left: -120px; top: 240px; } #banner .b2 { left: 2140px; top: 520px; }
 
     /* watermark: 150x150 transparent, YouTube shows it bottom-right on every video */
-    #watermark { width: 150px; height: 150px; }
-    #watermark .emblem { left: 18px; top: 18px; width: 114px; height: 114px; }
-    #watermark .emblem > span { font-size: 92px; }
+    #watermark { width: 150px; height: 150px; background: transparent; }
+    #watermark .mark { left: 15px; top: 15px; width: 120px; height: 120px; }
 
-    /* Instagram highlight covers: 1080x1920, centre circle carries the label */
-    .hl { width: 1080px; height: 1920px; --s1: 46px; --s2: 150px; }
-    .hl .disc { left: 165px; top: 585px; width: 750px; height: 750px; border-radius: 50%; flex-direction: column; gap: 26px; }
-    .hl .disc .emblem { position: relative; width: 190px; height: 190px; }
-    .hl .disc .emblem > span { font-size: 150px; }
-    .hl .label { font-size: 140px; transform: skewX(-8deg); }
-    .hl.v .disc { background: #6C2BFF; } .hl.v .label { color: #fff; }
-    .hl.y .disc { background: #FFD60A; } .hl.y .label { color: #0B0820; }
-    .hl .emblem { background: #0B0820; }
+    /* Instagram highlight covers: 1080x1920; Instagram crops the centre circle */
+    #hl { width: 1080px; height: 1920px; }
+    #hl .center { position: absolute; left: 0; top: 660px; width: 1080px; height: 600px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 36px; }
+    #hl .center .mark { position: relative; width: 300px; height: 300px; }
+    #hl .center .label-big { font-size: 96px; }
   </style>
 </head>
 <body>
-  <div id="profile" class="art">
-    <div class="bg"></div><div class="stripes"></div>
-    <div class="slash bar1"></div><div class="slash bar2"></div>
-    <div class="emblem"><span>P</span></div>
-  </div>
+  <div id="profile" class="art"><div class="wall"></div><div class="mark"></div></div>
 
   <div id="banner" class="art">
-    <div class="bg"></div><div class="stripes"></div>
-    <div class="slash s1"></div><div class="slash s2"></div><div class="slash s5"></div><div class="slash s3"></div><div class="slash s4"></div>
-    <div class="center lockup">
-      <div class="row"><div class="emblem"><span>P</span></div><div class="logo big">PUSHPSTATION</div></div>
-      <div class="chips">
-        <div class="chip v small"><span>PS5 GAMEPLAY</span></div>
-        <div class="chip y small"><span>GAMING NEWS</span></div>
-        <div class="chip w small"><span>TECH</span></div>
-      </div>
+    <div class="wall"></div>
+    <div class="big b1"></div><div class="big b2"></div>
+    <div class="mark"></div>
+    <div class="name head extrude">Pushpstation</div>
+    <div class="kinds">
+      <div class="tag k-gameplay">PS5 gameplay</div>
+      <div class="tag k-news">Gaming news</div>
+      <div class="tag k-tech">Tech</div>
     </div>
+    <div class="hint label">In Hinglish</div>
   </div>
 
-  <div id="watermark" class="art"><div class="emblem"><span>P</span></div></div>
+  <div id="watermark" class="art"><div class="mark"></div></div>
 
-  <div id="hl" class="art hl"><div class="bg"></div><div class="stripes"></div>
-    <div class="center disc"><div class="emblem"><span>P</span></div><div class="label big"></div></div>
-  </div>
+  <div id="hl" class="art"><div class="wall"></div><div class="center"><div class="mark"></div><div class="head extrude label-big"></div></div></div>
 
+  <script src="../hf/brand.js"></script>
   <script>
-    // #profile-800, #profile-1080, #banner, #watermark, #hl-v-GAMEPLAY ...
+    // #profile-800, #profile-1080, #banner, #watermark, #hl-<triangle|circle|cross|square|all>-<LABEL>
+    document.fonts.ready.then(() => {
     const [name, a, b] = location.hash.slice(1).split("-");
     const el = document.getElementById(name);
     el.style.display = "block";
     if (name === "profile") el.style.setProperty("--w", a + "px");
-    if (name === "hl") { el.classList.add(a); el.querySelector(".label").textContent = decodeURIComponent(b); }
+    const W = el.offsetWidth;
+    const wall = el.querySelector(".wall");
+    if (wall) wall.innerHTML = wallMarkup("Pushpstation", Math.ceil(el.offsetHeight / (W * 0.12)) + 1, Math.round(W * 0.11));
+    if (name === "hl" && a !== "all") el.querySelector(".mark").outerHTML = shapeSvg(a, 340);
+    el.querySelectorAll(".mark").forEach((m) => (m.innerHTML = markMarkup(m.offsetWidth)));
+    if (name === "banner") {
+      el.querySelector(".b1").innerHTML = shapeSvg("triangle", 520, "line");
+      el.querySelector(".b2").innerHTML = shapeSvg("circle", 420, "line");
+      fit("#banner .name", 1200);
+    }
+    if (name === "hl") {
+      el.querySelector(".label-big").textContent = decodeURIComponent(b);
+      fit("#hl .label-big", 760);
+    }
+    });
   </script>
 </body>
 </html>

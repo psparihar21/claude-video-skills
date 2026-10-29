@@ -1,87 +1,83 @@
 <!doctype html>
 <html lang="en" data-composition-variables='[
-  {"id":"left","type":"string","label":"Left slot label","default":"WATCH NEXT"},
-  {"id":"right","type":"string","label":"Right slot label","default":"BEST VIDEO"},
-  {"id":"next","type":"string","label":"Top-right note","default":"MORE GAMEPLAY SOON"}
+  {"id":"left","type":"string","label":"Left slot label","default":"Watch next"},
+  {"id":"right","type":"string","label":"Right slot label","default":"Best video"},
+  {"id":"next","type":"string","label":"Top-right note","default":"More gameplay soon"}
 ]'>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=1920, height=1080" />
+  <meta name="description" content="Pushpstation end screen, 15 s" />
   <title>Pushpstation end screen</title>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
   <link rel="stylesheet" href="brand.css" />
   <style>
     /* YouTube end-screen slots, measured from Studio (2026-10-29): videos 640x360 at (135,190) and (1145,190); subscribe circle centred (960,750), d about 300 */
-    #drift-box { position: absolute; width: 4400px; height: 4400px; left: 50%; top: 50%; margin: -2200px 0 0 -2200px; transform: rotate(-22deg); }
-    #drift { position: absolute; left: -600px; top: 0; width: 5600px; height: 100%;
-      background-image: repeating-linear-gradient(90deg, rgba(108,43,255,.13) 0 26px, transparent 26px 300px, rgba(255,214,10,.06) 300px 310px, transparent 310px 600px); }
-    #head { position: absolute; left: 135px; top: 36px; display: flex; align-items: center; gap: 26px; }
-    #em-wrap { position: relative; width: 100px; height: 100px; }
-    #em { position: relative; width: 100px; height: 100px; }
-    #em > span { font-size: 78px; }
-    #logo-wrap { position: relative; overflow: hidden; transform: skewX(-8deg); padding: 0 8px; }
-    #logo { font-size: 104px; color: #fff; }
-    #next { left: auto; right: 135px; top: 58px; height: 62px; padding: 0 30px; font-size: 32px; }
-    .slot { position: absolute; width: 640px; height: 360px; background: rgba(0,0,0,.35); outline: 3px solid rgba(255,255,255,.18); }
+    #wall { top: -10px; }
+    #mark { left: 135px; top: 40px; width: 110px; height: 110px; }
+    #name-wrap { position: absolute; left: 275px; top: 56px; }
+    #name { font-size: 76px; }
+    #next { left: auto; right: 135px; top: 62px; height: 76px; font-size: 32px; background: var(--color-volt); color: var(--color-on-volt); box-shadow: 8px 8px 0 var(--color-shade); }
+    .slot { position: absolute; width: 640px; height: 360px; border: 8px solid var(--color-ink); background: var(--color-ground-deep); box-shadow: 14px 14px 0 var(--color-coral), 22px 22px 0 var(--color-shade); }
     #sl { left: 135px; top: 190px; } #sr { left: 1145px; top: 190px; }
-    .cn { position: absolute; width: 70px; height: 70px; border: 0 solid #FFD60A; }
-    .tl { left: -14px; top: -14px; border-left-width: 10px; border-top-width: 10px; }
-    .tr { right: -14px; top: -14px; border-right-width: 10px; border-top-width: 10px; }
-    .bl { left: -14px; bottom: -14px; border-left-width: 10px; border-bottom-width: 10px; }
-    .br { right: -14px; bottom: -14px; border-right-width: 10px; border-bottom-width: 10px; }
-    #ll { left: 135px; top: 578px; height: 72px; padding: 0 36px; font-size: 42px; }
-    #rl { left: 1145px; top: 578px; height: 72px; padding: 0 36px; font-size: 42px; }
-    #ring { position: absolute; left: 780px; top: 570px; width: 360px; height: 360px; }
-    #subchip { left: 860px; top: 950px; height: 58px; width: 200px; font-size: 34px; background: #FF0033; color: #fff; }
+    #ll { left: 135px; top: 584px; height: 64px; font-size: 32px; background: var(--color-ink); color: var(--color-ground-deep); }
+    #rl { left: 1145px; top: 584px; height: 64px; font-size: 32px; background: var(--color-coral); color: var(--color-shade); }
+    #orbit { position: absolute; left: 760px; top: 550px; width: 400px; height: 400px; }
+    #ring { position: absolute; inset: 0; overflow: visible; }
+    #orbit .o { position: absolute; left: 175px; top: 175px; }
+    #sub-btn { left: 1180px; top: 860px; height: 76px; font-size: 32px; background: transparent; border: 6px solid var(--color-coral); color: var(--color-ink); font-family: var(--font-display); font-weight: 900; text-transform: uppercase; }
+    #ring-p { position: absolute; inset: 0; overflow: visible; }
   </style>
 </head>
 <body>
   <div id="root" data-composition-id="outro-long" data-start="0" data-duration="15" data-width="1920" data-height="1080">
     <div id="grp" class="clip" data-start="0" data-duration="15" style="position:absolute;inset:0">
-      <div class="wipe"><div id="slab" class="slab"></div></div>
-      <div id="drift-box"><div id="drift"></div></div>
-      <div id="head">
-        <div id="em-wrap"><div id="em" class="emblem"><span>P</span></div></div>
-        <div id="logo-wrap"><div id="logo" class="big">PUSHPSTATION</div><div id="sh" class="shine"></div></div>
+      <div id="cover" class="cover">
+        <div id="wall" class="wall"></div>
+        <div id="mark" class="mark"></div>
+        <div id="name-wrap"><div id="name" class="head extrude">Pushpstation</div></div>
+        <div id="next" class="tag" data-var-text="next">More gameplay soon</div>
+        <div id="sl" class="slot"></div>
+        <div id="sr" class="slot"></div>
+        <div id="ll" class="tag" data-var-text="left">Watch next</div>
+        <div id="rl" class="tag" data-var-text="right">Best video</div>
+        <div id="orbit">
+          <svg id="ring" aria-hidden="true" viewBox="0 0 400 400"><circle cx="200" cy="200" r="158" style="fill:none;stroke:var(--color-volt);stroke-width:10;stroke-dasharray:28 18" /></svg>
+          <div class="o"></div><div class="o"></div><div class="o"></div><div class="o"></div>
+        </div>
+        <div id="sub-btn" class="tag">Subscribe</div>
       </div>
-      <div id="next" class="chip v small"><span data-var-text="next">MORE GAMEPLAY SOON</span></div>
-      <div id="sl" class="slot"><div class="cn tl"></div><div class="cn tr"></div><div class="cn bl"></div><div class="cn br"></div></div>
-      <div id="sr" class="slot"><div class="cn tl"></div><div class="cn tr"></div><div class="cn bl"></div><div class="cn br"></div></div>
-      <div id="ll" class="chip v small"><span data-var-text="left">WATCH NEXT</span></div>
-      <div id="rl" class="chip y small"><span data-var-text="right">BEST VIDEO</span></div>
-      <svg id="ring" viewBox="0 0 280 280">
-        <circle id="r1" cx="140" cy="140" r="122" fill="none" stroke="#6C2BFF" stroke-width="10" stroke-dasharray="40 18" />
-        <circle id="r2" cx="140" cy="140" r="134" fill="none" stroke="#FFD60A" stroke-width="6" stroke-dasharray="210 632" stroke-linecap="round" />
-      </svg>
-      <div id="subchip" class="chip small"><span>SUBSCRIBE</span></div>
+      <svg id="ring-p" aria-hidden="true" viewBox="0 0 1920 1080"><path id="edge" d="M0 0Z" /></svg>
     </div>
   </div>
   <script src="brand.js"></script>
   <script>
     document.fonts.ready.then(() => {
-      buildSlabs();
-      splitChars("#logo");
+      document.getElementById("wall").innerHTML = wallMarkup("Pushpstation", 8, 130);
+      document.getElementById("mark").innerHTML = markMarkup(110);
+      document.querySelectorAll("#orbit .o").forEach((o, i) => (o.innerHTML = shapeSvg(["triangle", "circle", "cross", "square"][i], 50)));
+      splitChars("#name");
       const tl = gsap.timeline({ paused: true });
-      slabIn(tl, "#slab", 0);
-      tl.fromTo("#drift", { x: 0, opacity: 0 }, { x: -600, opacity: 1, duration: 15, ease: "none" }, 0);
-      tl.fromTo("#em-wrap", { scale: 0, rotation: -120 }, { scale: 1, rotation: 0, duration: 0.5, ease: "back.out(1.8)" }, 0.32);
-      charsIn(tl, "#logo", 0.4, 0.024);
-      chipIn(tl, "#next", 0.8);
-      ["#sl", "#sr"].forEach((s, i) => {
-        tl.fromTo(s, { scale: 0.86, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "power3.out" }, 0.55 + i * 0.12);
-        tl.fromTo(`${s} .tl`, { x: 60, y: 40 }, { x: 0, y: 0, duration: 0.5, ease: "power4.out" }, 0.7 + i * 0.12);
-        tl.fromTo(`${s} .tr`, { x: -60, y: 40 }, { x: 0, y: 0, duration: 0.5, ease: "power4.out" }, 0.7 + i * 0.12);
-        tl.fromTo(`${s} .bl`, { x: 60, y: -40 }, { x: 0, y: 0, duration: 0.5, ease: "power4.out" }, 0.7 + i * 0.12);
-        tl.fromTo(`${s} .br`, { x: -60, y: -40 }, { x: 0, y: 0, duration: 0.5, ease: "power4.out" }, 0.7 + i * 0.12);
+      shapeCover(tl, "#cover", "#edge", "square", 1920, 1080, 0, 0.42, null, 0);
+      wallDrift(tl, "#wall", 0, 15, 1600);
+      markIn(tl, "#mark", 0.36);
+      charsIn(tl, "#name", 0.42, 0.022);
+      tagIn(tl, "#next", 0.8);
+      ["#sl", "#sr"].forEach((s, i) => tl.fromTo(s, { scale: 0.6, rotation: i ? 4 : -4, opacity: 0 }, { scale: 1, rotation: 0, opacity: 1, duration: 0.5, ease: "back.out(1.6)" }, 0.55 + i * 0.12));
+      tagIn(tl, "#ll", 0.95); tagIn(tl, "#rl", 1.05);
+      tl.fromTo("#ring", { scale: 0, rotation: -180, transformOrigin: "50% 50%" }, { scale: 1, rotation: 0, duration: 0.6, ease: "back.out(1.6)" }, 1.1);
+      tl.fromTo("#ring", { rotation: 0 }, { rotation: 360, duration: 13.3, ease: "none", immediateRender: false }, 1.7);
+      // the four shapes orbit the subscribe circle, a quarter turn apart
+      const orbit = { a: 0 };
+      const place = () => document.querySelectorAll("#orbit .o").forEach((o, i) => {
+        const t = orbit.a + i * Math.PI / 2;
+        o.style.transform = `translate(${Math.cos(t) * 172}px, ${Math.sin(t) * 172}px) rotate(${orbit.a * 57.3}deg) scale(${orbit.s ?? 1})`;
       });
-      chipIn(tl, "#ll", 1.0);
-      chipIn(tl, "#rl", 1.12);
-      tl.fromTo("#ring", { scale: 0, rotation: -180 }, { scale: 1, rotation: 0, duration: 0.6, ease: "back.out(1.5)", transformOrigin: "50% 50%" }, 1.15);
-      tl.fromTo("#r1", { rotation: 0 }, { rotation: 360, duration: 14, ease: "none", transformOrigin: "50% 50%" }, 1.15);
-      tl.fromTo("#r2", { rotation: 0 }, { rotation: -720, duration: 14, ease: "none", transformOrigin: "50% 50%" }, 1.15);
-      chipIn(tl, "#subchip", 1.45);
-      [1.6, 5.6, 9.6].forEach((t) => shine(tl, "#sh", t, 900));
-      [4, 8, 12].forEach((t) => tl.to("#subchip", { scale: 1.12, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, t));
+      orbit.s = 0; place();
+      tl.to(orbit, { s: 1, duration: 0.4, ease: "back.out(2)", onUpdate: place }, 1.3);
+      tl.to(orbit, { a: Math.PI * 2, duration: 13.3, ease: "none", onUpdate: place }, 1.7);
+      tagIn(tl, "#sub-btn", 1.45);
+      [5, 10].forEach((t) => tl.to("#sub-btn", { scale: 1.1, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out" }, t));
       window.__timelines["outro-long"] = tl;
     });
   </script>

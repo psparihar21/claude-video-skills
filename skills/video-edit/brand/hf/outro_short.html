@@ -1,56 +1,57 @@
 <!doctype html>
 <html lang="en" data-composition-variables='[
-  {"id":"line1","type":"string","label":"Big line","default":"FULL VIDEO"},
-  {"id":"line2","type":"string","label":"Yellow line","default":"ON THE CHANNEL"}
+  {"id":"line1","type":"string","label":"Big line","default":"Full video"},
+  {"id":"line2","type":"string","label":"Second line","default":"on the channel"}
 ]'>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=1080, height=1920" />
+  <meta name="description" content="Pushpstation Shorts end card, 9:16" />
   <title>Pushpstation outro short</title>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
   <link rel="stylesheet" href="brand.css" />
   <style>
-    /* content kept in x 120-900 so the Shorts like/comment column never covers it */
-    .row { position: absolute; left: 0; width: 1080px; display: flex; justify-content: center; }
-    #r-em { top: 470px; }
-    #em-wrap { position: relative; width: 190px; height: 190px; }
-    #em { position: relative; width: 190px; height: 190px; }
-    #em > span { font-size: 146px; }
-    #r-logo { top: 700px; }
-    #logo-wrap { overflow: hidden; transform: skewX(-8deg); padding: 0 8px; }
-    #logo { font-size: 104px; color: #fff; letter-spacing: .04em; }
-    #r-l1 { top: 840px; }
-    #l1-wrap { overflow: hidden; transform: skewX(-8deg); padding: 0 8px; }
-    #l1 { font-size: 190px; color: #fff; }
-    #r-l2 { top: 1060px; }
-    #r-l2 .chip { position: relative; height: 104px; padding: 0 48px; font-size: 70px; }
-    #sub { left: 280px; top: 1290px; }
+    /* content kept in x 100-900 so the Shorts like/comment column never covers it */
+    #wall { top: 0; }
+    #mark { left: 100px; top: 470px; width: 220px; height: 220px; }
+    #name-wrap { position: absolute; left: 100px; top: 740px; }
+    #name { font-size: 80px; }
+    #l1-wrap { position: absolute; left: 100px; top: 860px; }
+    #l1 { font-size: 132px; }
+    #l2 { left: 100px; top: 1030px; height: 84px; font-size: 44px; background: var(--color-volt); color: var(--color-on-volt); box-shadow: 8px 8px 0 var(--color-shade); }
+    #sub { left: 100px; top: 1190px; }
+    #ring { position: absolute; inset: 0; overflow: visible; }
   </style>
 </head>
 <body>
   <div id="root" data-composition-id="outro-short" data-start="0" data-duration="3.6" data-width="1080" data-height="1920">
     <div id="grp" class="clip" data-start="0" data-duration="3.6" style="position:absolute;inset:0">
-      <div class="wipe"><div id="slab" class="slab"></div></div>
-      <div id="r-em" class="row"><div id="em-wrap"><div id="em" class="emblem"><span>P</span></div></div></div>
-      <div id="r-logo" class="row"><div id="logo-wrap"><div id="logo" class="big">PUSHPSTATION</div></div></div>
-      <div id="r-l1" class="row"><div id="l1-wrap"><div id="l1" class="big" data-var-text="line1">FULL VIDEO</div></div></div>
-      <div id="r-l2" class="row"><div id="l2" class="chip y big"><span data-var-text="line2">ON THE CHANNEL</span></div></div>
-      <div id="sub" class="subscribe"></div>
+      <div id="cover" class="cover">
+        <div id="wall" class="wall"></div>
+        <div id="mark" class="mark"></div>
+        <div id="name-wrap"><div id="name" class="head extrude">Pushpstation</div></div>
+        <div id="l1-wrap"><div id="l1" class="head extrude" data-var-text="line1">Full video</div></div>
+        <div id="l2" class="tag" data-var-text="line2">on the channel</div>
+        <div id="sub" class="subscribe"></div>
+      </div>
+      <svg id="ring" aria-hidden="true" viewBox="0 0 1080 1920"><path id="ring-p" d="M0 0Z" /></svg>
     </div>
   </div>
   <script src="brand.js"></script>
   <script>
     document.fonts.ready.then(() => {
-      buildSlabs();
-      fit("#l1", 820);
-      splitChars("#logo"); splitChars("#l1");
+      document.getElementById("wall").innerHTML = wallMarkup("Pushpstation", 16, 120);
+      document.getElementById("mark").innerHTML = markMarkup(220);
       document.getElementById("sub").innerHTML = subscribeMarkup();
+      fit("#l1", 860); fit("#name", 860);
+      splitChars("#name"); splitChars("#l1");
       const tl = gsap.timeline({ paused: true });
-      slabIn(tl, "#slab", 0, 0.38);
-      tl.fromTo("#em-wrap", { scale: 0, rotation: -120 }, { scale: 1, rotation: 0, duration: 0.45, ease: "back.out(1.8)" }, 0.2);
-      charsIn(tl, "#logo", 0.26, 0.02);
-      charsIn(tl, "#l1", 0.36, 0.03);
-      chipIn(tl, "#l2", 0.62);
+      shapeCover(tl, "#cover", "#ring-p", "circle", 1080, 1920, 0, 0.36, null, 0);
+      wallDrift(tl, "#wall", 0, 3.6, 500);
+      markIn(tl, "#mark", 0.28);
+      charsIn(tl, "#name", 0.34, 0.02);
+      charsIn(tl, "#l1", 0.48, 0.03);
+      tagIn(tl, "#l2", 0.66);
       subscribeAnim(tl, "#sub", 0.75);
       window.__timelines["outro-short"] = tl;
     });

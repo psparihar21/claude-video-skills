@@ -143,7 +143,8 @@ See [SECURITY.md](SECURITY.md) to report a problem.
 Fetched from their original repos by `install.ps1`, not copied here:
 [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) (HyperFrames + media-use),
 [louisedesadeleer/clipify](https://github.com/louisedesadeleer/clipify),
-[louisedesadeleer/cut-video](https://github.com/louisedesadeleer/cut-video).
+[louisedesadeleer/cut-video](https://github.com/louisedesadeleer/cut-video),
+[nutlope/hallmark](https://github.com/Nutlope/hallmark) (Together AI's anti-AI-slop design skill for web pages and artifacts).
 `add-zooms` and `find-broll` adapt ideas from Tella's skills by the same author (code written fresh);
 `yt-audit` and `producing-channel-videos` include scripts adapted from youtube-agent-skill with its license file.
 

@@ -1,50 +1,61 @@
-/* Pushpstation gaming pack (v2, 2026-10-29): deep navy, electric violet, hot yellow, sharp 22-degree slashes. */
-@font-face { font-family: "Anton"; src: url("fonts/Anton-Regular.ttf"); }
-@font-face { font-family: "Rajdhani"; src: url("fonts/Rajdhani-Bold.ttf"); font-weight: 700; }
+/* Hallmark · theme: custom · idea: "the four controller shapes are the brand; they burst out to change scenes and stack into the logo" · vibe: "loud, saturated, chunky, kinetic, PlayStation night" · research: IGN Daily Fix, GamingBolt, GameSpot, gameranx, SSundee (2026-10-29) · axes: dark/display-heavy/chromatic-blue · scope: video graphics (HyperFrames, 1920x1080 and 1080x1920) · redesign: full (v4 replaces the Werkstatt v3 the user found boring) */
+/* Hallmark · pre-emit critique: P4 H4 E4 S5 R3 V5 · weakest: R, the type walls and grain are a lot at once; each lives only while the frame is covered, never over gameplay */
 
-:root { --deep: #0B0820; --deep2: #16113A; --violet: #6C2BFF; --yellow: #FFD60A; --white: #FFFFFF; --grey: #2E2A45; }
+:root {
+  --color-ground: oklch(36% 0.2 264);
+  --color-ground-deep: oklch(22% 0.13 266);
+  --color-ink: oklch(98% 0.01 100);
+  --color-volt: oklch(91% 0.22 125);
+  --color-coral: oklch(68% 0.21 30);
+  --color-sky: oklch(78% 0.12 230);
+  --color-shade: oklch(14% 0.08 266);
+  --color-wall: oklch(98% 0.01 100 / 0.14);
+  --color-on-volt: oklch(22% 0.13 266);
+  --font-display: "Unbounded", sans-serif;
+  --font-label: "Chakra Petch", sans-serif;
+}
+@font-face { font-family: "Unbounded"; src: url("fonts/Unbounded-var.ttf"); font-weight: 200 900; }
+@font-face { font-family: "Chakra Petch"; src: url("fonts/ChakraPetch-SemiBold.ttf"); font-weight: 600; }
+@font-face { font-family: "Chakra Petch"; src: url("fonts/ChakraPetch-Bold.ttf"); font-weight: 700; }
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { margin: 0; overflow: hidden; background: transparent; }
-#root { position: relative; width: 100%; height: 100%; overflow: hidden; }
+html, body { margin: 0; overflow-x: clip; background: transparent; }
+body { overflow: clip; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; color: var(--color-ink); }
 
-.big   { font-family: "Anton", sans-serif; text-transform: uppercase; white-space: nowrap; line-height: 1; letter-spacing: .01em; }
-.small { font-family: "Rajdhani", sans-serif; font-weight: 700; text-transform: uppercase; white-space: nowrap; letter-spacing: .14em; line-height: 1; }
-
-/* split letters rise out of a mask */
-.mask { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 .02em; }
+/* type: Unbounded 900 for names and heads, extruded; Chakra Petch for labels, sentence case, untracked */
+.head { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; line-height: 0.95; letter-spacing: -0.01em; white-space: nowrap; }
+.extrude { color: var(--color-ink); text-shadow: 1px 1px 0 var(--color-coral), 2px 2px 0 var(--color-coral), 3px 3px 0 var(--color-coral), 4px 4px 0 var(--color-coral), 5px 5px 0 var(--color-coral), 6px 6px 0 var(--color-coral), 7px 7px 0 var(--color-coral), 8px 8px 0 var(--color-coral), 9px 9px 0 var(--color-shade), 10px 10px 0 var(--color-shade); }
+.label { font-family: var(--font-label); font-weight: 700; line-height: 1.1; white-space: nowrap; }
+.mask { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 0.06em 0.16em 0; }
 .ch { display: inline-block; }
 
-/* slanted chips and boxes */
-.chip { position: absolute; display: flex; align-items: center; justify-content: center; }
-.chip > span { display: block; }
-.v { background: var(--violet); color: var(--white); }
-.y { background: var(--yellow); color: var(--deep); }
-.w { background: var(--white); color: var(--deep); }
-.d { background: var(--deep); color: var(--white); }
+/* fills: each kind of video has one colour */
+.k-gameplay { background: var(--color-volt); color: var(--color-on-volt); }
+.k-news { background: var(--color-coral); color: var(--color-shade); }
+.k-tech { background: var(--color-sky); color: var(--color-on-volt); }
+.tag { position: absolute; display: flex; align-items: center; padding: 0 28px; font-family: var(--font-label); font-weight: 700; white-space: nowrap; }
 
-/* full-frame slash wipe: a slab of bars inside a square rotated 22 degrees */
-.wipe { position: absolute; width: 4400px; height: 4400px; left: 50%; top: 50%; margin: -2200px 0 0 -2200px; transform: rotate(-22deg); pointer-events: none; }
-.slab { position: absolute; inset: 0; }
-.bar { position: absolute; top: 0; height: 100%; }
+/* the four shapes: drawn in SVG, filled or outlined */
+.shape { position: absolute; overflow: visible; }
 
-/* logo mark: violet slanted block with a yellow cut corner */
-.emblem { position: absolute; display: flex; align-items: center; justify-content: center; transform: skewX(-12deg);
-  background: var(--violet); clip-path: polygon(0 0, 100% 0, 100% 72%, 72% 100%, 0 100%); }
-.emblem::after { content: ""; position: absolute; right: 0; bottom: 0; width: 24%; height: 24%; background: var(--yellow);
-  clip-path: polygon(100% 0, 100% 100%, 0 100%); }
-.emblem > span { transform: skewX(12deg); font-family: "Anton", sans-serif; color: var(--white); line-height: 1; }
+/* full-frame cover: the ground with the name repeated in walls, solid and outline rows in turn */
+.cover { position: absolute; inset: 0; background: var(--color-ground); overflow: hidden; }
+.wall { position: absolute; left: 0; width: 100%; display: flex; flex-direction: column; gap: 8px; }
+.wall-row { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; white-space: nowrap; line-height: 0.95; }
+.wall-row.solid { color: var(--color-wall); }
+.wall-row.line { color: transparent; -webkit-text-stroke: 2px var(--color-wall); }
 
-/* shine: a white slanted band that passes over text once */
-.shine { position: absolute; top: -20%; height: 140%; width: 90px; background: rgba(255,255,255,.55); mix-blend-mode: overlay; }
+/* the mark: the four shapes stacked in a 2x2 block */
+.mark { position: absolute; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 8%; }
+.mark > svg { width: 100%; height: 100%; overflow: visible; }
 
-/* subscribe click: place .subscribe where it should sit; inner parts are positioned from its top-left */
-.subscribe { position: absolute; width: 520px; height: 110px; }
-.sub-pill { position: absolute; left: 0; top: 0; width: 400px; height: 104px; border-radius: 14px; background: #FF0033;
-  display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
-.sub-pill span { position: absolute; font-family: "Rajdhani", sans-serif; font-weight: 700; font-size: 54px; letter-spacing: .06em; color: #fff; }
-.sub-b { opacity: 0; color: #CFCBE6 !important; }
-.sub-bell { position: absolute; left: 420px; top: 2px; width: 100px; height: 100px; border-radius: 50%; background: #2E2A45;
-  display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
-.sub-cursor { position: absolute; left: 250px; top: 58px; opacity: 0; filter: drop-shadow(0 4px 6px rgba(0,0,0,.5)); }
-/* faint stripes on the navy cover so it never reads as a flat fill */
-.bar.d { background-image: repeating-linear-gradient(90deg, rgba(108,43,255,.10) 0 70px, transparent 70px 210px); }
+/* subscribe click: a coral button, the cursor clicks it, it turns outlined SUBSCRIBED, the bell rings */
+.subscribe { position: absolute; display: flex; gap: 20px; height: 104px; }
+.sub-btn { position: relative; width: 400px; height: 104px; background: var(--color-coral); display: flex; align-items: center; justify-content: center; box-shadow: 8px 8px 0 var(--color-shade); }
+.sub-btn span { position: absolute; font-family: var(--font-display); font-weight: 900; font-size: 40px; text-transform: uppercase; color: var(--color-ink); }
+.sub-btn .sub-b { opacity: 0; }
+.sub-bell { position: relative; width: 104px; height: 104px; background: var(--color-volt); color: var(--color-on-volt); display: flex; align-items: center; justify-content: center; box-shadow: 8px 8px 0 var(--color-shade); }
+.sub-cursor { position: absolute; left: 250px; top: 58px; opacity: 0; color: var(--color-ink); }
+
+@media (prefers-reduced-motion: reduce) { .ch { transform: none; } }

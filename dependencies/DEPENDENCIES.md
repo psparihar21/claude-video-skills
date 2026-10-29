@@ -10,6 +10,7 @@ Everything the skills need, so they work on a fresh machine. Third-party items a
 | `hyperframes`, `hyperframes-core`, `-animation`, `-audio`, `-cli`, `-creative`, `-keyframes`, `-registry`, `-studio`, `media-use` | `video-edit` (titles, lower thirds, local transcription) | [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) | `npx skills add heygen-com/hyperframes -g -y` |
 | `clipify` | `video-edit` (Shorts method) | [louisedesadeleer/clipify](https://github.com/louisedesadeleer/clipify) (MIT) | `git clone` into `~/.claude/skills/clipify` |
 | `cut-video` | `video-edit` (cutting method) | [louisedesadeleer/cut-video](https://github.com/louisedesadeleer/cut-video) (MIT) | `git clone` into `~/.claude/skills/cut-video` |
+| `hallmark` | standalone: web pages, landing pages, artifacts (`/hallmark <prompt>`, `/hallmark audit <path>`) | [nutlope/hallmark](https://github.com/Nutlope/hallmark) (MIT, Together AI) | `npx skills add nutlope/hallmark -g -y --agent claude-code` |
 
 `video-edit` uses `clipify` and `cut-video` as method references only. It translates their macOS commands to Windows, so it still runs if they are missing.
 

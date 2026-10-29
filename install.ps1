@@ -27,7 +27,8 @@ if (-not $SkipDependencies) {
   Write-Host "== Third-party skills (from their original authors)"
   if (Get-Command npx -ErrorAction SilentlyContinue) {
     npx --yes skills add heygen-com/hyperframes -g -y
-  } else { Write-Host "   skipped hyperframes: npx not found" -ForegroundColor Yellow }
+    npx --yes skills add nutlope/hallmark -g -y --agent claude-code
+  } else { Write-Host "   skipped hyperframes, hallmark: npx not found" -ForegroundColor Yellow }
 
   foreach ($s in 'clipify','cut-video') {
     $dest = Join-Path $Target $s
