@@ -66,6 +66,20 @@ Apply it as the last step, after picture lock and the mix and before packaging:
 - The end screen plays over the muffled audio of the last 15 s unless `-Music` (a SnipSound bed) is given. In YouTube Studio the user places the two videos on the corner brackets and the subscribe element on the ring.
 - Change the look in `brand/hf/*.html` (shared helpers in `brand.css` and `brand.js`). After moving any animation time, update the times in `brand/make_sfx.sh` and re-run it.
 
+### Channel art (added 2026-10-29)
+
+`brand/channel-art/art.html` holds the same pack as still images; `render_art.ps1 -OutDir <folder> [-Highlights "GAMEPLAY,NEWS,TECH,SHORTS,SETUP"]` screenshots them with headless Chrome.
+
+| File | Size | Notes |
+|---|---|---|
+| `youtube-profile-800.jpg` | 800x800 | Shown as a circle; the P badge stays inside it |
+| `instagram-profile-1080.jpg` | 1080x1080 | Instagram shows it as a 320 px circle |
+| `youtube-banner-2560x1440.jpg` | 2560x1440, under 6 MB | Logo and chips inside the 1546x423 safe area (507,508); `banner-safe-area-check.png` draws that box in red |
+| `youtube-watermark-150.png` | 150x150, transparent | Studio > Customization > Branding > Video watermark |
+| `instagram-highlight-NN-<name>.png` | 1080x1920 | Instagram crops the centre circle; the label sits inside a 750 px disc |
+
+Check the profile and highlights as circle crops at phone size before handing them over. Channel copy (description, keywords, bio) goes in chat, never in a file (RULES 2026-10-23).
+
 ## Hiding private info (verified 2026-10-16)
 
 - Track the target with a template match: pull gray 960x540 frames at 10 fps through ffmpeg rawvideo into numpy, FFT normalised cross-correlation against a template cut from one clear frame. Keep matches with score above 0.75, median-filter, interpolate, and hold the nearest sample with a bigger box in gaps. Write a 960x540 gray mask video (FFV1), one frame per output frame.
