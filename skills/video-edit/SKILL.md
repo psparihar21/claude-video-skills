@@ -51,7 +51,7 @@ Read `references/hook-and-retention.md` before planning a cut. In short: open on
 | `intro_long` | 16:9, 2.9 s overlay | Slash bars sweep across, the emblem spins in, the PUSHPSTATION letters rise, then the "NOW PLAYING" and game-name chips and a shine pass; it clears and the slashes sweep off. Placed where the cold-open hook ends. |
 | `transition` | 16:9, 1.0 s | The slash bars cover the frame at 0.40-0.52 s with an emblem flash. Centred on a cut, it is used for section changes (`-Cuts`), not every cut. |
 | `subscribe` | 16:9, 3.4 s, bottom centre | The red SUBSCRIBE pill rises, a cursor clicks it, it turns grey SUBSCRIBED, the bell pops and rings. Placed on the sign-off line (`-SubAt`, default 6 s before the end). |
-| `outro_long` | 16:9, 15 s | A slash wipe starts 0.42 s before the last frame and leads into a full-frame end screen: logo, next-video note, two corner-bracket slots for YouTube's end-screen videos (720x405 at 150,250 and 1050,250), and a rotating ring for the subscribe circle (centre 960,905). |
+| `outro_long` | 16:9, 15 s | A slash wipe starts 0.42 s before the last frame and leads into a full-frame end screen: logo, next-video note, two corner-bracket slots for YouTube's end-screen videos (640x360 at 135,190 and 1145,190, measured in YouTube Studio on 2026-10-29), and a rotating ring for the subscribe circle (centre 960,750, about 300 across). |
 | `intro_short` | 9:16, 2.6 s overlay at 0 s | A slanted yellow/violet/navy band at y 280-640 with the emblem, a "NOW PLAYING" chip and the game name, over the hook action. |
 | `outro_short` | 9:16, last 3.6 s | A slash wipe into a full-frame card: emblem, PUSHPSTATION, FULL VIDEO, an ON THE CHANNEL chip, and the subscribe click with the bell. |
 

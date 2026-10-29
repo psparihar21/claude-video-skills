@@ -11,28 +11,28 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
   <link rel="stylesheet" href="brand.css" />
   <style>
-    /* YouTube end-screen slots: videos 720x405 at (150,250) and (1050,250); subscribe circle centred (960,905), d 220 */
+    /* YouTube end-screen slots, measured from Studio (2026-10-29): videos 640x360 at (135,190) and (1145,190); subscribe circle centred (960,750), d about 300 */
     #drift-box { position: absolute; width: 4400px; height: 4400px; left: 50%; top: 50%; margin: -2200px 0 0 -2200px; transform: rotate(-22deg); }
     #drift { position: absolute; left: -600px; top: 0; width: 5600px; height: 100%;
       background-image: repeating-linear-gradient(90deg, rgba(108,43,255,.13) 0 26px, transparent 26px 300px, rgba(255,214,10,.06) 300px 310px, transparent 310px 600px); }
-    #head { position: absolute; left: 150px; top: 60px; display: flex; align-items: center; gap: 26px; }
-    #em-wrap { position: relative; width: 120px; height: 120px; }
-    #em { position: relative; width: 120px; height: 120px; }
-    #em > span { font-size: 92px; }
+    #head { position: absolute; left: 135px; top: 36px; display: flex; align-items: center; gap: 26px; }
+    #em-wrap { position: relative; width: 100px; height: 100px; }
+    #em { position: relative; width: 100px; height: 100px; }
+    #em > span { font-size: 78px; }
     #logo-wrap { position: relative; overflow: hidden; transform: skewX(-8deg); padding: 0 8px; }
-    #logo { font-size: 128px; color: #fff; }
-    #next { left: auto; right: 150px; top: 94px; height: 66px; padding: 0 32px; font-size: 34px; }
-    .slot { position: absolute; width: 720px; height: 405px; background: rgba(0,0,0,.35); outline: 3px solid rgba(255,255,255,.18); }
-    #sl { left: 150px; top: 250px; } #sr { left: 1050px; top: 250px; }
+    #logo { font-size: 104px; color: #fff; }
+    #next { left: auto; right: 135px; top: 58px; height: 62px; padding: 0 30px; font-size: 32px; }
+    .slot { position: absolute; width: 640px; height: 360px; background: rgba(0,0,0,.35); outline: 3px solid rgba(255,255,255,.18); }
+    #sl { left: 135px; top: 190px; } #sr { left: 1145px; top: 190px; }
     .cn { position: absolute; width: 70px; height: 70px; border: 0 solid #FFD60A; }
     .tl { left: -14px; top: -14px; border-left-width: 10px; border-top-width: 10px; }
     .tr { right: -14px; top: -14px; border-right-width: 10px; border-top-width: 10px; }
     .bl { left: -14px; bottom: -14px; border-left-width: 10px; border-bottom-width: 10px; }
     .br { right: -14px; bottom: -14px; border-right-width: 10px; border-bottom-width: 10px; }
-    #ll { left: 150px; top: 682px; height: 78px; padding: 0 36px; font-size: 42px; }
-    #rl { left: 1050px; top: 682px; height: 78px; padding: 0 36px; font-size: 42px; }
-    #ring { position: absolute; left: 830px; top: 775px; width: 260px; height: 260px; }
-    #subchip { left: 1110px; top: 876px; height: 58px; width: 200px; font-size: 34px; background: #FF0033; color: #fff; }
+    #ll { left: 135px; top: 578px; height: 72px; padding: 0 36px; font-size: 42px; }
+    #rl { left: 1145px; top: 578px; height: 72px; padding: 0 36px; font-size: 42px; }
+    #ring { position: absolute; left: 780px; top: 570px; width: 360px; height: 360px; }
+    #subchip { left: 860px; top: 950px; height: 58px; width: 200px; font-size: 34px; background: #FF0033; color: #fff; }
   </style>
 </head>
 <body>
