@@ -112,8 +112,15 @@ $c = 0; $graph = ($g | ForEach-Object {
   if ($line -match "^\[cur\]") { $line = $line -replace "^\[cur\]", "[c$c]" }
   if ($line -match "\[cur\]$") { $c++; $line = $line -replace "\[cur\]$", "[c$c]" }
   $line }) -join ";`n"
-$gfile = Join-Path $tmp "graph.txt"; [IO.File]::WriteAllText($gfile, $graph)
-& ffmpeg -v error -stats -y @ins -/filter_complex $gfile -map "[v]" -map "[a]" -c:v $enc -preset p7 -tune hq -rc vbr -cq 16 -b:v 0 `
+# audio in its own pass: mixed in one graph with the video, everything after the main video's last frame came out silent (end-screen bed + outro SFX, 2026-10-29)
+$lines = $graph -split ";`n"; $isA = { $_ -match ':a\]|\[a0\]|\[bed\]|anullsrc' }
+$gfile = Join-Path $tmp "graph.txt"; [IO.File]::WriteAllText($gfile, (@($lines | Where-Object { -not (& $isA) }) -join ";`n"))
+$afile = Join-Path $tmp "agraph.txt"; [IO.File]::WriteAllText($afile, (@($lines | Where-Object $isA) -join ";`n"))
+$mixwav = Join-Path $tmp "mix.wav"
+& ffmpeg -v error -y @ins -/filter_complex $afile -map "[a]" -c:a pcm_f32le -ar 48000 $mixwav
+if ($LASTEXITCODE -ne 0) { throw "ffmpeg audio pass failed; graph in $afile" }
+$na = @($ins | Where-Object { $_ -eq "-i" }).Count
+& ffmpeg -v error -stats -y @ins -i $mixwav -/filter_complex $gfile -map "[v]" -map "$($na):a" -c:v $enc -preset p7 -tune hq -rc vbr -cq 16 -b:v 0 `
   -pix_fmt yuv420p -r $fps -c:a aac -b:a 320k -ar 48000 -movflags +faststart $Out
 if ($LASTEXITCODE -ne 0) { throw "ffmpeg failed; graph in $gfile" }
 
