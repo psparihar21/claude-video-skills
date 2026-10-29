@@ -27,7 +27,7 @@ in Hindi, Hinglish or English.
 | `references/hook-and-retention.md` | Hook, pacing and retention method, studied from 5 top editing tutorials and 5 big Indian gaming channels |
 | `brand/brand_wrap.ps1` | Adds the channel's intro, slash transitions, subscribe click and end screen to a finished long video or Short |
 | `brand/hf/*.html` | The HyperFrames graphics: `intro_long`, `transition`, `subscribe`, `outro_long` (16:9) and `intro_short`, `outro_short` (9:16), with shared `brand.css` / `brand.js` |
-| `brand/hf/fonts/` | Anton and Rajdhani Bold (SIL Open Font License, licence files included) |
+| `brand/hf/fonts/` | Unbounded and Chakra Petch (SIL Open Font License, licence files included) |
 | `brand/channel-art/` | `art.html` + `render_art.ps1`: YouTube profile picture, banner (safe-area checked) and watermark, Instagram profile picture and highlight covers in the same style |
 | `brand/make_sfx.sh` | Synthesises the whoosh, impact, click, pop and bell sounds into `brand/sfx/*.wav` (no sound library needed) |
 

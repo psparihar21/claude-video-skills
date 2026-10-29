@@ -1,35 +1,43 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"shape","type":"enum","label":"Shape","default":"circle","options":[{"value":"triangle","label":"Triangle"},{"value":"circle","label":"Circle"},{"value":"cross","label":"Cross"},{"value":"square","label":"Square"}]}
+]'>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=1920, height=1080" />
-  <title>Pushpstation slash transition</title>
+  <meta name="description" content="Pushpstation section transition, 16:9" />
+  <title>Pushpstation transition</title>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
   <link rel="stylesheet" href="brand.css" />
   <style>
-    #mid { position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
-    #em-wrap { position: relative; width: 170px; height: 170px; }
-    #em { position: relative; width: 170px; height: 170px; }
-    #em > span { font-size: 130px; }
+    #wall { top: -40px; }
+    #mark { left: 860px; top: 440px; width: 200px; height: 200px; }
+    #ring { position: absolute; inset: 0; overflow: visible; }
   </style>
 </head>
 <body>
-  <!-- cut between the two clips at 0.46 s: the frame is fully covered 0.40-0.52 s -->
+  <!-- cut between the two clips at 0.46 s: the frame is fully covered 0.36-0.52 s -->
   <div id="root" data-composition-id="transition" data-start="0" data-duration="1" data-width="1920" data-height="1080">
     <div id="grp" class="clip" data-start="0" data-duration="1" style="position:absolute;inset:0">
-      <div class="wipe"><div id="slab" class="slab"></div></div>
-      <div id="mid"><div id="em-wrap"><div id="em" class="emblem"><span>P</span></div></div></div>
+      <div id="cover" class="cover">
+        <div id="wall" class="wall"></div>
+        <div id="mark" class="mark"></div>
+      </div>
+      <svg id="ring" aria-hidden="true" viewBox="0 0 1920 1080"><path id="ring-p" d="M0 0Z" /></svg>
     </div>
   </div>
   <script src="brand.js"></script>
   <script>
     document.fonts.ready.then(() => {
-      buildSlabs();
+      const v = (window.__hyperframes && window.__hyperframes.getVariables()) || {};
+      const shape = ["triangle", "circle", "cross", "square"].includes(v.shape) ? v.shape : "circle";
+      document.getElementById("wall").innerHTML = wallMarkup("Pushpstation", 7, 150);
+      document.getElementById("mark").innerHTML = markMarkup(200);
       const tl = gsap.timeline({ paused: true });
-      slabIn(tl, "#slab", 0, 0.4);
-      tl.fromTo("#em-wrap", { scale: 0, rotation: -90 }, { scale: 1, rotation: 0, duration: 0.2, ease: "back.out(2)" }, 0.3);
-      tl.to("#em-wrap", { scale: 0, rotation: 90, duration: 0.14, ease: "power3.in" }, 0.5);
-      slabOut(tl, "#slab", 0.52, 0.42);
+      shapeCover(tl, "#cover", "#ring-p", shape, 1920, 1080, 0, 0.36, 0.52, 0.42);
+      wallDrift(tl, "#wall", 0, 1, 300);
+      tl.fromTo("#mark > svg", { scale: 0, rotation: -120, transformOrigin: "50% 50%" }, { scale: 1, rotation: 0, duration: 0.2, ease: "back.out(2)", stagger: 0.025 }, 0.28);
+      tl.to("#mark > svg", { scale: 0, rotation: 120, duration: 0.12, ease: "power3.in", stagger: 0.02 }, 0.5);
       window.__timelines["transition"] = tl;
     });
   </script>

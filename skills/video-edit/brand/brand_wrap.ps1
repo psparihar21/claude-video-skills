@@ -1,9 +1,10 @@
 <#
-Adds the Pushpstation gaming pack (v2) to a finished edit.
-  long : 2.9 s slash sting at -IntroAt (where the cold-open hook ends), slash transitions centred on each
+Adds the Pushpstation pack (v4: cobalt, volt, coral and the four controller shapes) to a finished edit.
+  long : 2.9 s sting at -IntroAt (where the cold-open hook ends), shape-burst transitions (circle, triangle, cross, square in turn) centred on each
          -Cuts time, a subscribe-click at -SubAt (default 6 s before the end), and a 15 s end screen
-         whose slash wipe starts 0.42 s before the last frame (YouTube end-screen slots marked).
-  short: 2.6 s "NOW PLAYING" band over the hook at 0 s, and a 3.6 s full-frame end card with the
+         whose wipe starts 0.42 s before the last frame (YouTube end-screen slots marked).
+  -Kind sets the tag colour: gameplay (volt), news (coral), tech (sky).
+  short: 2.6 s "Now playing" panel over the hook at 0 s, and a 3.6 s full-frame end card with the
          subscribe click on the last 3.6 s (skip it with -NoOutro). Nothing is appended.
 Graphics render per video through HyperFrames (alpha ProRes 4444) at the video's own resolution.
 
@@ -15,12 +16,13 @@ param(
   [Parameter(Mandatory)][ValidateSet("long","short")][string]$Mode,
   [Parameter(Mandatory)][string]$Out,
   [string]$Note = "PS5 Gameplay",         # game name
-  [string]$Tag = "NOW PLAYING",
+  [string]$Tag = "PS5 gameplay",          # tag cell text
+  [ValidateSet("gameplay","news","tech")][string]$Kind = "gameplay",  # tag cell colour
   [double]$IntroAt = -1,                  # long: second where the hook ends; required for long
-  [string]$Cuts = "",                     # long: comma-separated cut times that get a slash transition
+  [string]$Cuts = "",                     # long: comma-separated cut times that get a shape transition
   [double]$SubAt = -1,                    # long: subscribe click start; default 6 s before the end
-  [string]$Next = "MORE GAMEPLAY SOON",   # long end screen, top right
-  [string]$Right = "BEST VIDEO",          # long end screen, right slot label
+  [string]$Next = "More gameplay soon",   # long end screen, top right
+  [string]$Right = "Best video",          # long end screen, right slot label
   [string]$Music = "",                    # long end screen bed (SnipSound file); default = muffled tail audio
   [switch]$NoOutro                        # short only: the format already ends on its own outro scene
 )
@@ -57,12 +59,13 @@ function Render($comp, $vars, $f) {
 $gf = [math]::Min($fps, 60)
 $cutList = @($Cuts.Split(",") | Where-Object { $_.Trim() } | ForEach-Object { [double]::Parse($_.Trim(), $inv) })
 if ($Mode -eq "long") {
-  Render "intro_long" @{ note = $Note; tag = $Tag } $gf
+  Render "intro_long" @{ note = $Note; tag = $Tag; kind = $Kind } $gf
   Render "subscribe" @{} $gf
   Render "outro_long" @{ next = $Next; right = $Right } 30   # 30 fps keeps the 15 s render quick; motion is slow
-  if ($cutList.Count) { Render "transition" @{} $gf }
+  $shapes = @("circle", "triangle", "cross", "square")  # each section cut gets the next shape in turn
+  foreach ($s in ($shapes | Select-Object -First ([math]::Min(4, $cutList.Count)))) { Render "transition" @{ shape = $s } $gf; Move-Item (Join-Path $tmp "transition.mov") (Join-Path $tmp "transition-$s.mov") -Force }
 } else {
-  Render "intro_short" @{ note = $Note; tag = $Tag } $gf
+  Render "intro_short" @{ note = $Note; tag = $Tag; kind = $Kind } $gf
   if (-not $NoOutro) { Render "outro_short" @{} $gf }
 }
 
@@ -82,16 +85,8 @@ if ($Mode -eq "long") {
   if ($SubAt -lt 0) { $SubAt = [math]::Max(0, $dur - 6) }
   $g += "[0:v]tpad=stop_mode=clone:stop_duration=$(n ($total - $dur)),format=yuv420p[cur]"
   Place "i" (AddIn "$tmp\intro_long.mov") (AddIn "$sfx\intro_long.wav") $IntroAt 2.9
-  if ($cutList.Count) {
-    $tv = AddIn "$tmp\transition.mov"; $ts = AddIn "$sfx\transition.wav"
-    $g += "[$($tv):v]split=$($cutList.Count)" + (($cutList | ForEach-Object -Begin { $k = 0 } -Process { "[tv$k]"; $k++ }) -join "")
-    $g += "[$($ts):a]asplit=$($cutList.Count)" + (($cutList | ForEach-Object -Begin { $k = 0 } -Process { "[ts$k]"; $k++ }) -join "")
-    for ($k = 0; $k -lt $cutList.Count; $k++) {
-      $t = $cutList[$k] - 0.46
-      $g += "[tv$k]setpts=PTS-STARTPTS+$(n $t)/TB[ot$k]"
-      $g += "[cur][ot$k]overlay=enable='between(t,$(n $t),$(n ($t + 1)))':eof_action=pass:format=auto[cur]"
-      $g += "[ts$k]adelay=$([int]($t * 1000)):all=1[at$k]"; $mixes += "[at$k]"
-    }
+  for ($k = 0; $k -lt $cutList.Count; $k++) {
+    Place "t$k" (AddIn "$tmp\transition-$($shapes[$k % 4]).mov") (AddIn "$sfx\transition.wav") ($cutList[$k] - 0.46) 1
   }
   Place "s" (AddIn "$tmp\subscribe.mov") (AddIn "$sfx\subscribe.wav") $SubAt 3.4
   Place "o" (AddIn "$tmp\outro_long.mov") (AddIn "$sfx\outro_long.wav") $oStart 15

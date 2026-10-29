@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=1920, height=1080" />
-  <title>Pushpstation subscribe click</title>
+  <meta name="description" content="Pushpstation subscribe click, bottom centre overlay" />
+  <title>Pushpstation subscribe</title>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
   <link rel="stylesheet" href="brand.css" />
-  <style> #sub { left: 700px; top: 880px; } </style>
+  <style> #sub { left: 698px; top: 870px; } </style>
 </head>
 <body>
   <!-- bottom-centre overlay for the sign-off line; 3.4 s -->
@@ -21,7 +22,7 @@
       document.getElementById("sub").innerHTML = subscribeMarkup();
       const tl = gsap.timeline({ paused: true });
       subscribeAnim(tl, "#sub", 0);
-      tl.to("#sub", { y: 220, duration: 0.35, ease: "power3.in" }, 3.0);
+      tl.to("#sub", { y: 260, rotation: 4, duration: 0.32, ease: "back.in(1.6)" }, 3.0);
       window.__timelines["subscribe"] = tl;
     });
   </script>

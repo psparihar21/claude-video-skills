@@ -39,26 +39,28 @@ Read `references/hook-and-retention.md` before planning a cut. In short: open on
 
 ## Pushpstation intro and outro (every video, added 2026-10-29)
 
-`brand/` holds the channel's gaming pack (v2, 2026-10-29). It was built after studying Techno Gamerz, Ujjwal, Total Gaming, Live Insaan and GamerFleet:
-- **Colours:** deep navy #0B0820, electric violet #6C2BFF, hot yellow #FFD60A, white; the subscribe button is YouTube red #FF0033.
-- **Shapes:** sharp 22-degree slash bars, slanted chips, and a "P" emblem (a violet slanted block with a yellow cut corner).
-- **Type:** Anton for the big condensed text, Rajdhani Bold for labels.
-- **Sound:** synthesised whoosh, impact, tick, click, pop and bell.
-- **Motion:** smooth eases only; no wobble or shake.
+`brand/` holds the channel's pack (v4, 2026-10-29). It was built from a study of IGN Daily Fix, GamingBolt, GameSpot, gameranx and SSundee after the user found v3 (Werkstatt, muted) boring. The Hallmark stamp and tokens are the first lines of `hf/brand.css`.
+- **Idea:** the four controller shapes are the brand: triangle (volt), circle (coral), cross (sky), square (white). They form the logo (a 2x2 stack), they burst out to change scenes, and they orbit the subscribe circle. The user's old avatar already used them.
+- **Colours:** electric cobalt ground, volt lime, hot coral, sky blue, white, a deep navy shade. Only the tokens in `hf/brand.css`. The kind of video sets the tag colour (`-Kind`): gameplay volt, news coral, tech sky.
+- **Type:** Unbounded 900 capitals, extruded with a coral and navy 3D shadow, for names and heads; Chakra Petch for labels, in sentence case. Walls of "PUSHPSTATION" in solid and outline rows drift in opposite directions behind every full-frame card (IGN-style kinetic type).
+- **Shapes:** chunky hard offset shadows (coral, then navy) on tags, frames and buttons. No slants and no wobble.
+- **Motion:** bouncy and fast: back.out overshoot on tags and letters, shapes spin in, and the cover grows as a spinning shape then opens as a hole of the same shape.
+- **Sound:** synthesised whoosh, impact, tick, click, pop and bell (`make_sfx.sh`).
+- **Check:** after any change, run `node ~/.claude/skills/hallmark/scripts/sloplint.mjs hf channel-art --genre playful --scope component` until it is clean, then look at rendered frames. Long names: check they end at least 80 px from the frame edge, because the extrusion adds about 10 px.
 
 | Piece | Format | What it does |
 |---|---|---|
-| `intro_long` | 16:9, 2.9 s overlay | Slash bars sweep across, the emblem spins in, the PUSHPSTATION letters rise, then the "NOW PLAYING" and game-name chips and a shine pass; it clears and the slashes sweep off. Placed where the cold-open hook ends. |
-| `transition` | 16:9, 1.0 s | The slash bars cover the frame at 0.40-0.52 s with an emblem flash. Centred on a cut, it is used for section changes (`-Cuts`), not every cut. |
-| `subscribe` | 16:9, 3.4 s, bottom centre | The red SUBSCRIBE pill rises, a cursor clicks it, it turns grey SUBSCRIBED, the bell pops and rings. Placed on the sign-off line (`-SubAt`, default 6 s before the end). |
-| `outro_long` | 16:9, 15 s | A slash wipe starts 0.42 s before the last frame and leads into a full-frame end screen: logo, next-video note, two corner-bracket slots for YouTube's end-screen videos (640x360 at 135,190 and 1145,190, measured in YouTube Studio on 2026-10-29), and a rotating ring for the subscribe circle (centre 960,750, about 300 across). |
-| `intro_short` | 9:16, 2.6 s overlay at 0 s | A slanted yellow/violet/navy band at y 280-640 with the emblem, a "NOW PLAYING" chip and the game name, over the hook action. |
-| `outro_short` | 9:16, last 3.6 s | A slash wipe into a full-frame card: emblem, PUSHPSTATION, FULL VIDEO, an ON THE CHANNEL chip, and the subscribe click with the bell. |
+| `intro_long` | 16:9, 2.9 s overlay | A triangle grows spinning from the centre with a volt edge until it covers the frame. Inside it the name walls drift, the four shapes pop in as the logo, PUSHPSTATION rises extruded, and "Now playing", the game name and the kind tag slam in. Then a triangle hole opens back onto the footage. Placed where the cold-open hook ends. |
+| `transition` | 16:9, 1.0 s, `shape` variable | A shape cover with the logo flashed in the centre; the frame is covered at 0.36-0.52 s. Cuts in `-Cuts` take circle, triangle, cross and square in turn. Used for section changes, not every cut. |
+| `subscribe` | 16:9, 3.4 s, bottom centre | A coral SUBSCRIBE button bounces up, a cursor clicks it, it turns navy SUBSCRIBED, and the volt bell pops and rings while the four shapes burst out of it. Placed on the sign-off line (`-SubAt`, default 6 s before the end). |
+| `outro_long` | 16:9, 15 s | A square cover starts 0.42 s before the last frame and leads into the end screen: the logo and extruded name, a volt "Next" tag, two white-framed slots with coral and navy offset shadows on YouTube's end-screen positions (640x360 at 135,190 and 1145,190, measured in Studio on 2026-10-29), tags under them, a dashed volt ring for the subscribe circle (centre 960,750) with the four shapes orbiting it, and an outlined SUBSCRIBE tag. The walls drift for the whole 15 s. |
+| `intro_short` | 9:16, 2.6 s overlay at 0 s | A cobalt panel with drifting walls and a coral and navy offset shadow swings in at y 290-650, with the logo, "Now playing", the extruded game name and the kind tag, over the hook action. |
+| `outro_short` | 9:16, last 3.6 s | A circle cover leads into a full-frame card: the logo, PUSHPSTATION, an extruded FULL VIDEO, a volt "on the channel" tag, and the subscribe click with the bell. |
 
 Apply it as the last step, after picture lock and the mix and before packaging:
 ```powershell
-& "$HOME\.claude\skills\video-edit\brand\brand_wrap.ps1" -Video final.mp4 -Mode long -IntroAt <hook end s> -Note "<Game name>" [-Tag "NOW PLAYING"] [-Cuts "95.2,301.8"] [-SubAt <sign-off s>] [-Next "NEXT: <game>"] [-Right "BEST VIDEO"] [-Music bed.mp3] -Out final-branded.mp4
-& "$HOME\.claude\skills\video-edit\brand\brand_wrap.ps1" -Video short.mp4 -Mode short -Note "<Game name>" [-Tag "PS PLUS"] [-NoOutro] -Out short-branded.mp4
+& "$HOME\.claude\skills\video-edit\brand\brand_wrap.ps1" -Video final.mp4 -Mode long -IntroAt <hook end s> -Note "<Game name>" [-Tag "PS5 gameplay"] [-Kind gameplay|news|tech] [-Cuts "95.2,301.8"] [-SubAt <sign-off s>] [-Next "Next: <game>"] [-Right "Best video"] [-Music bed.mp3] -Out final-branded.mp4
+& "$HOME\.claude\skills\video-edit\brand\brand_wrap.ps1" -Video short.mp4 -Mode short -Note "<Game name>" [-Tag "PS Plus"] [-Kind news] [-NoOutro] -Out short-branded.mp4
 ```
 - The script renders the graphics with HyperFrames at the video's own resolution (alpha ProRes), composites them, adds the SFX, encodes with NVENC cq 16 (HEVC stays HEVC), applies a -2 dB limiter and prints duration and loudness. A long video grows by 14.58 s. Tested at 1080p60 and 4K HEVC 60 (a 25 s 4K clip took 155 s).
 - `-Cuts`: section changes only (a new game, a new chapter), usually 2-6 per long video. The cut must sit exactly at the given time, because the frame is covered for only 0.12 s around it.
@@ -68,15 +70,15 @@ Apply it as the last step, after picture lock and the mix and before packaging:
 
 ### Channel art (added 2026-10-29)
 
-`brand/channel-art/art.html` holds the same pack as still images; `render_art.ps1 -OutDir <folder> [-Highlights "GAMEPLAY,NEWS,TECH,SHORTS,SETUP"]` screenshots them with headless Chrome.
+`brand/channel-art/art.html` holds the same pack as still images; `render_art.ps1 -OutDir <folder> [-Highlights "Gameplay:gameplay,News:news,Tech:tech,Shorts:ink,Setup:ink"]` screenshots them with headless Chrome.
 
 | File | Size | Notes |
 |---|---|---|
-| `youtube-profile-800.jpg` | 800x800 | Shown as a circle; the P badge stays inside it |
+| `youtube-profile-800.jpg` | 800x800 | The mark, centred well inside the circle crop |
 | `instagram-profile-1080.jpg` | 1080x1080 | Instagram shows it as a 320 px circle |
-| `youtube-banner-2560x1440.jpg` | 2560x1440, under 6 MB | Logo and chips inside the 1546x423 safe area (507,508); `banner-safe-area-check.png` draws that box in red |
+| `youtube-banner-2560x1440.jpg` | 2560x1440, under 6 MB | Mark, name and the three kind cells inside the 1546x423 safe area (507,508); ruled grid lines run out to the edges for TV and desktop; `banner-safe-area-check.png` draws that box in red |
 | `youtube-watermark-150.png` | 150x150, transparent | Studio > Customization > Branding > Video watermark |
-| `instagram-highlight-NN-<name>.png` | 1080x1920 | Instagram crops the centre circle; the label sits inside a 750 px disc |
+| `instagram-highlight-NN-<name>.png` | 1080x1920 | Instagram crops the centre circle; a 620 px square filled with the kind's colour (Shorts and Setup are plain putty) |
 
 Check the profile and highlights as circle crops at phone size before handing them over. Channel copy (description, keywords, bio) goes in chat, never in a file (RULES 2026-10-23).
 

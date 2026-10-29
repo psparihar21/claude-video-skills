@@ -12,7 +12,7 @@ Web: creator blogs agree on a 1-5 s gaming intro and a 10-20 s end screen; their
 ## What gaming channels actually do
 - Big channels have **no logo intro**. Techno Gamerz and jacksepticeye start on gameplay or talking at frame 1. MortaL's 8 s glowing logo reveal (2019) is the old template look; avoid it.
 - Branding is a 1-3 s sting **after** the hook, or a permanent small mark.
-- Endings: a fast transition into a 15-20 s end screen (Techno Gamerz swoosh into key art; Total Gaming a red template with "THANKS FOR WATCHING"). Techno Gamerz also runs a red SUBSCRIBE button that a cursor clicks (it turns grey SUBSCRIBED and the bell rings) during the sign-off. Our v2 pack follows that grammar in its own navy/violet/yellow look.
+- Endings: a fast transition into a 15-20 s end screen (Techno Gamerz swoosh into key art; Total Gaming a red template with "THANKS FOR WATCHING"). Techno Gamerz also runs a red SUBSCRIBE button that a cursor clicks (it turns grey SUBSCRIBED and the bell rings) during the sign-off. Our v4 pack follows that grammar in its own cobalt, volt and coral look.
 
 ## The opening (most important 30 s)
 1. **Cold open = the best moment first.** Start the clip just before the peak (the kill, the crash, the reveal), never on setup. Up to 5-8 s of the strongest clips, then the brand sting, then the video.
@@ -33,7 +33,7 @@ Web: creator blogs agree on a 1-5 s gaming intro and a 10-20 s end screen; their
 - **Stills move.** Any poster or screenshot gets a slow push (already in My style); a punch-in on the line that matters.
 
 ## Graphics
-- **One look everywhere.** One font set, one colour set, one or two transitions repeated through the whole video. For Pushpstation that is the v2 gaming pack (`brand/`): slash wipes, slanted chips, Anton type.
+- **One look everywhere.** One font set, one colour set, one or two transitions repeated through the whole video. For Pushpstation that is the v4 gaming pack (`brand/`): controller-shape transitions, extruded Unbounded type, drifting name walls.
 - **Nothing pops in silently.** Every graphic enters with motion (slash, rise, chip grow) or a sound (whoosh, impact, tick).
 - **Text lands with the voice.** On-screen words appear on the frame the word is spoken.
 - **Do the fun animation last.** Finish the whole cut first, then spend spare time on showpiece graphics.

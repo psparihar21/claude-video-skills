@@ -4,7 +4,8 @@ Renders the Pushpstation channel art from art.html with headless Chrome.
 Writes YouTube profile (800), Instagram profile (1080), YouTube banner (JPG under 6 MB), a transparent
 150x150 watermark, highlight covers, plus banner-safe-area-check.png (red box = text-safe area).
 #>
-param([Parameter(Mandatory)][string]$OutDir, [string]$Highlights = "GAMEPLAY,NEWS,TECH,SHORTS,SETUP")
+# -Highlights takes LABEL:shape pairs; shape triangle, circle, cross, square, or all (the four-shape mark)
+param([Parameter(Mandatory)][string]$OutDir, [string]$Highlights = "Gameplay:triangle,News:circle,Tech:cross,Shorts:square,Setup:all")
 $ErrorActionPreference = "Continue"
 $chrome = "C:\Program Files\Google\Chrome\Application\chrome.exe"
 $art = "file:///" + ((Join-Path $PSScriptRoot "art.html") -replace "\\", "/")
@@ -23,8 +24,8 @@ Shot "banner" 2560 1440 "banner.png"
 Shot "watermark" 150 150 "youtube-watermark-150.png"
 $i = 0
 foreach ($h in $Highlights.Split(",")) {
-  $c = if ($i % 2) { "y" } else { "v" }
-  Shot "hl-$c-$([uri]::EscapeDataString($h.Trim()))" 1080 1920 ("instagram-highlight-{0:00}-{1}.png" -f ($i + 1), $h.Trim().ToLower())
+  $label, $k = $h.Trim().Split(":"); if (-not $k) { $k = "all" }
+  Shot "hl-$k-$([uri]::EscapeDataString($label))" 1080 1920 ("instagram-highlight-{0:00}-{1}.png" -f ($i + 1), $label.ToLower())
   $i++
 }
 # JPG copies where the platforms prefer them; banner must stay under 6 MB
