@@ -10,6 +10,7 @@
   --color-sky: oklch(78% 0.12 230);
   --color-shade: oklch(14% 0.08 266);
   --color-wall: oklch(98% 0.01 100 / 0.14);
+  --color-wall-line: color-mix(in srgb, var(--color-ink) 22%, var(--color-ground));
   --color-on-volt: oklch(22% 0.13 266);
   --font-display: "Unbounded", sans-serif;
   --font-label: "Chakra Petch", sans-serif;
@@ -44,7 +45,8 @@ body { overflow: clip; }
 .wall { position: absolute; left: 0; width: 100%; display: flex; flex-direction: column; gap: 8px; }
 .wall-row { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; white-space: nowrap; line-height: 0.95; }
 .wall-row.solid { color: var(--color-wall); }
-.wall-row.line { color: transparent; -webkit-text-stroke: 2px var(--color-wall); }
+/* outline drawn as a shadow ring around ground-filled letters: a text stroke shows the variable font's overlapping contours */
+.wall-row.line { color: var(--color-ground); text-shadow: 0.022em 0 0 var(--color-wall-line), -0.022em 0 0 var(--color-wall-line), 0 0.022em 0 var(--color-wall-line), 0 -0.022em 0 var(--color-wall-line), 0.022em 0.022em 0 var(--color-wall-line), -0.022em 0.022em 0 var(--color-wall-line), 0.022em -0.022em 0 var(--color-wall-line), -0.022em -0.022em 0 var(--color-wall-line); }
 
 /* the mark: the four shapes stacked in a 2x2 block */
 .mark { position: absolute; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 8%; }
