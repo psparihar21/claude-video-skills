@@ -47,6 +47,8 @@ No accounts, API keys or personal data are stored in this repo, and CI checks ev
 | [`yt-audit`](skills/yt-audit/) | Channel audit: packaging, consistency, hooks, dead air, retention. |
 | [`yt-plan`](skills/yt-plan/) | A week or month of uploads sized to what you can actually make. |
 | [`yt-comment`](skills/yt-comment/) | Triage comments and draft replies. Nothing is posted. |
+| [`viral-thumbnail`](skills/viral-thumbnail/) | 1280x720 thumbnail from official art or a real frame; includes a study of the Dattrax Plays channel style. |
+| [`episode-template`](skills/episode-template/) | Title, thumbnail brief, hook outline, description and tags for any YouTube video or series. |
 
 ### Recording setup
 

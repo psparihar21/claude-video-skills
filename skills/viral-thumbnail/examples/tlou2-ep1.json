@@ -1,0 +1,16 @@
+{
+  "art": "key.png", "out": "thumb_v3.jpg",
+  "art_zoom": 1.18, "art_y": 0.045, "vignette": 0.3,
+  "dark_left": {"alpha": 175, "width": 640},
+  "title": [
+    {"text": "THE LAST", "x": 38, "y": 175, "size": 150, "color": "#ffffff"},
+    {"text": "OF US", "x": 38, "y": 330, "size": 150, "color": "#ffffff"},
+    {"text": "2", "x": 392, "y": 300, "size": 230, "color": "#d6ff3a"}
+  ],
+  "extrude": {"color": "#ff6246", "depth": 7},
+  "chips": [
+    {"text": "PS5", "x": 38, "y": 40, "size": 54, "bg": "#d6ff3a", "fg": "#080a18"},
+    {"text": "EP 1", "x": 38, "y": 545, "size": 120, "bg": "#ff6246", "fg": "#ffffff", "pad_x": 32, "h": 140}
+  ],
+  "face": {"path": "face_new.png", "size": 300, "margin": [30, 26], "ring": "#d6ff3a", "ring_w": 10}
+}
